@@ -9,11 +9,11 @@ import com.example.olden.cryptoexchange.data.network.api.ApiModule;
 
 public class CryptoExchangeApplication extends Application {
 
-    public static final String BASE_URL = "https://www.cryptocompare.com/api/data";
+    public static final String BASE_URL = "https://www.cryptocompare.com/api/data/";
     private AppComponent appComponent;
 
     @NonNull
-    public static CryptoExchangeApplication get(@NonNull Context context) {
+    public static CryptoExchangeApplication appComponent(@NonNull Context context) {
         return (CryptoExchangeApplication) context.getApplicationContext();
     }
 
@@ -32,5 +32,5 @@ public class CryptoExchangeApplication extends Application {
     }
 
     @NonNull
-    public AppComponent get() {return appComponent;}
+    public AppComponent appComponent() {return appComponent;}
 }

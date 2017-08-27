@@ -19,6 +19,6 @@ public class OkHttpInterceptorsModule {
 
     @Provides @Singleton @NonNull
     public List<Interceptor> provideOkHttpInterceptors() {
-        return singletonList(new HttpLoggingInterceptor());
+        return singletonList(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
     }
 }
