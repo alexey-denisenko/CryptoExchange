@@ -17,6 +17,6 @@ public interface CryptoCompareService {
     Single<CoinsData> getCoinsData();
 
     @GET("/price")
-    Single<PricesData> getPrice(@Query("fsym") String from, @Query("tsym") List<String> to);
+    Single<PricesData> getPrices(@Query("fsym") String from, @Query("tsym") List<String> to);
 
 }
