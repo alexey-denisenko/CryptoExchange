@@ -1,6 +1,7 @@
 package com.example.olden.cryptoexchange.data.network.models.response;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
@@ -13,7 +14,7 @@ public abstract class Currency {
     @SerializedName("Id")
     public abstract int id();
 
-    @NonNull
+    @Nullable
     @SerializedName("ImageUrl")
     public abstract String imageUrl();
 

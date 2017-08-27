@@ -3,6 +3,8 @@ package com.example.olden.cryptoexchange.data.network.models.response;
 import android.support.annotation.NonNull;
 
 import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.SerializedName;
 
 @AutoValue
@@ -18,6 +20,11 @@ public abstract class Price {
 
     @NonNull
     public static Price.Builder builder() {return new AutoValue_Price.Builder();}
+
+    @NonNull
+    public static TypeAdapter<Price> typeAdapter(Gson gson) {
+        return new AutoValue_Price.GsonTypeAdapter(gson);
+    }
 
     @AutoValue.Builder
     public static abstract class Builder {

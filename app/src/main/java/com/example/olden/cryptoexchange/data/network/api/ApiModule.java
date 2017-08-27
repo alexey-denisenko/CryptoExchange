@@ -23,7 +23,7 @@ public class ApiModule {
     }
 
     @Provides @NonNull @Singleton
-    public CryptoCompareService provideQualityMattersApi(@NonNull OkHttpClient okHttpClient, @NonNull Gson gson) {
+    public CryptoCompareService provideCryptoCompareApi(@NonNull OkHttpClient okHttpClient, @NonNull Gson gson) {
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(okHttpClient)

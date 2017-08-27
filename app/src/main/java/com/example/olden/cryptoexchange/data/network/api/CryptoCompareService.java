@@ -13,10 +13,10 @@ import retrofit2.http.Query;
 
 public interface CryptoCompareService {
 
-    @GET("/coinlist") @NonNull
+    @GET("coinlist/") @NonNull
     Single<CoinsData> getCoinsData();
 
-    @GET("/price")
-    Single<PricesData> getPrices(@Query("fsym") String from, @Query("tsym") List<String> to);
+    @GET("price/")
+    Single<PricesData> getPrices(@Query("fsym") String from, @Query("tsyms") List<String> to);
 
 }
