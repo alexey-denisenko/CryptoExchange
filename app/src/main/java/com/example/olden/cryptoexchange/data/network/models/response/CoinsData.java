@@ -13,9 +13,16 @@ import java.util.HashMap;
 @AutoValue
 public abstract class CoinsData {
 
+    @NonNull
     @SerializedName("Data")
     public abstract HashMap<String, Currency> data();
 
+    public static CoinsData.Builder builder() {
+        return new AutoValue_CoinsData.Builder();
+    }
+
+
+    @NonNull
     public static TypeAdapter<CoinsData> typeAdapter(Gson gson) {
         return new AutoValue_CoinsData.GsonTypeAdapter(gson);
     }

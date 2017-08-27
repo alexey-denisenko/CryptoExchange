@@ -13,12 +13,20 @@ public abstract class Currency {
     @SerializedName("Id")
     public abstract int id();
 
+    @NonNull
     @SerializedName("ImageUrl")
     public abstract String imageUrl();
 
+    @NonNull
     @SerializedName("Name")
     public abstract String name();
 
+    @NonNull
+    public static Builder builder() {
+        return new AutoValue_Currency.Builder();
+    }
+
+    @NonNull
     public static TypeAdapter<Currency> typeAdapter(Gson gson) {
         return new AutoValue_Currency.GsonTypeAdapter(gson);
     }

@@ -16,12 +16,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class ApiModule {
 
-    private static final String BASE_URL = "https://www.cryptocompare.com/";
+    private String baseUrl;
+
+    public ApiModule(@NonNull String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
 
     @Provides @NonNull @Singleton
     public CryptoCompareService provideQualityMattersApi(@NonNull OkHttpClient okHttpClient, @NonNull Gson gson) {
         return new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(baseUrl)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
