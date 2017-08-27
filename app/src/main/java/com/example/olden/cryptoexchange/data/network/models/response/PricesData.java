@@ -8,32 +8,32 @@ import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.HashMap;
+import java.util.List;
 
 @AutoValue
-public abstract class CoinsData {
+public abstract class PricesData {
 
     @NonNull
     @SerializedName("Data")
-    public abstract HashMap<String, Currency> data();
+    public abstract List<Price> data();
 
     @NonNull
-    public static CoinsData.Builder builder() {
-        return new AutoValue_CoinsData.Builder();
+    public static PricesData.Builder builder() {
+        return new AutoValue_PricesData.Builder();
     }
 
     @NonNull
-    public static TypeAdapter<CoinsData> typeAdapter(Gson gson) {
-        return new AutoValue_CoinsData.GsonTypeAdapter(gson);
+    public static TypeAdapter<PricesData> typeAdapter(Gson gson) {
+        return new AutoValue_PricesData.GsonTypeAdapter(gson);
     }
 
     @AutoValue.Builder
     public static abstract class Builder {
 
         @NonNull
-        public abstract CoinsData.Builder data(@NonNull HashMap<String, Currency> data);
+        public abstract PricesData.Builder data(@NonNull List<Price> data);
 
         @NonNull
-        public abstract CoinsData build();
+        public abstract PricesData build();
     }
 }
