@@ -3,7 +3,8 @@ package com.example.olden.cryptoexchange;
 
 import com.example.olden.cryptoexchange.data.network.NetworkModule;
 import com.example.olden.cryptoexchange.data.network.api.ApiModule;
-import com.example.olden.cryptoexchange.presentation.CurrenciesListActivity;
+import com.example.olden.cryptoexchange.presentation.currencies_list.di.CurrenciesListComponent;
+import com.example.olden.cryptoexchange.presentation.currencies_list.di.CurrenciesListModule;
 
 import javax.inject.Singleton;
 
@@ -17,5 +18,6 @@ import dagger.Component;
         OkHttpInterceptorsModule.class
 })
 public interface AppComponent {
-    void inject(CurrenciesListActivity activity);
+
+    CurrenciesListComponent plus(CurrenciesListModule module);
 }

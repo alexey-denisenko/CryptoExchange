@@ -3,8 +3,6 @@ package com.example.olden.cryptoexchange;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.example.olden.cryptoexchange.business.currencies_list.CurrenciesListInteractor;
-import com.example.olden.cryptoexchange.business.currencies_list.ICurrenciesListInteractor;
 import com.example.olden.cryptoexchange.data.network.api.CryptoCompareService;
 import com.example.olden.cryptoexchange.data.repositories.CurrenciesRepository;
 import com.example.olden.cryptoexchange.data.repositories.ICurrenciesRepository;
@@ -38,15 +36,8 @@ public class ApplicationModule {
                 .create();
     }
 
-    //TODO move this somewhere
     @Provides @Singleton
     public ICurrenciesRepository provideCurrenciesRepossitory(CryptoCompareService cryptoCompareService) {
         return new CurrenciesRepository(cryptoCompareService);
-    }
-
-    //TODO and this
-    @Provides @Singleton
-    public ICurrenciesListInteractor provideCurrenciesListInteractor(ICurrenciesRepository iCurrenciesRepository) {
-        return new CurrenciesListInteractor(iCurrenciesRepository);
     }
 }
