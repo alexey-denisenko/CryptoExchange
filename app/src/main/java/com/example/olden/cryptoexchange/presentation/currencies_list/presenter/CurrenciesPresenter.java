@@ -76,6 +76,8 @@ public class CurrenciesPresenter implements ICurrenciesPresenter {
 
     private void setCurrenciesListToView(List<String> strings) {
         //Todo hide loading
+        List<String> currencies = iCurrenciesInteractor.getSelectedCurrenciesList();
+        strings.removeAll(currencies);
         iCurrenciesView.setAutoCompleteTextView(strings);
     }
 

@@ -43,7 +43,7 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
     @Inject
     ICurrenciesPresenter presenter;
 
-    private CurrenciesListAdapter adapter;
+    private CurrenciesListAdapter currenciesListAdapter;
 
     @Nullable
     @Override
@@ -65,7 +65,7 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
 
     @Override
     public void onDestroyView() {
-        presenter.saveCurrencyNamesToStorage(adapter.getCurrencies());
+        presenter.saveCurrencyNamesToStorage(currenciesListAdapter.getCurrencies());
         presenter.unBindView();
         super.onDestroyView();
     }
@@ -83,28 +83,30 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
 
     @Override
     public void showSavedCurrenciesList(List<String> currencies) {
-        adapter.addCurrencyList(currencies);
+        currenciesListAdapter.addCurrencyList(currencies);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String currencyName = (String) parent.getItemAtPosition(position);
-        adapter.addCurrency(currencyName);
-        adapter.notifyDataSetChanged();
+        currenciesListAdapter.addCurrency(currencyName);
+        currenciesListAdapter.notifyDataSetChanged();
+
+        searchTextView.setText("");
     }
 
     @Override
     public void onCurrencySelected(int position) {
-        String currencyName = adapter.getCurrencies().get(position);
+        String currencyName = currenciesListAdapter.getCurrencies().get(position);
         Intent intent = new Intent(getActivity(), PricesActivity.class);
         intent.putExtra(IntentKey.CURRENCY_NAME, currencyName);
         startActivity(intent);
     }
 
     private void initRecyclerView() {
-        adapter = new CurrenciesListAdapter(this);
+        currenciesListAdapter = new CurrenciesListAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(currenciesListAdapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
     }
 }
