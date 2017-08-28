@@ -7,10 +7,8 @@ import java.util.List;
 
 import io.reactivex.Single;
 
-public interface ICurrenciesListInteractor {
+public interface ICurrenciesInteractor {
 
     Single<List<String>> getCurrencyNamesList();
-
-    Single<Currency> getCurrencyByName();
 
 }

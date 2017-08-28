@@ -38,4 +38,9 @@ public abstract class Price {
         @NonNull
         public abstract Price build();
     }
+
+    @Override
+    public String toString() {
+        return name() + " = " + price();
+    }
 }

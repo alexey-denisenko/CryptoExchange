@@ -36,4 +36,13 @@ public abstract class PricesData {
         @NonNull
         public abstract PricesData build();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder strBuilder = new StringBuilder();
+        for(Price price : data()) {
+            strBuilder.append(price.toString()).append("\n");
+        }
+        return strBuilder.toString();
+    }
 }
