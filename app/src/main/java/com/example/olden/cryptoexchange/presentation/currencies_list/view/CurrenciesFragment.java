@@ -28,6 +28,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CurrenciesFragment extends Fragment implements ICurrenciesView,
         AdapterView.OnItemClickListener, CurrenciesListViewHolder.OnCurrencySelectedListener {
@@ -44,6 +45,8 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
     ICurrenciesPresenter presenter;
 
     private CurrenciesListAdapter currenciesListAdapter;
+
+    private ArrayAdapter<String> searchViewAdapter;
 
     @Nullable
     @Override
@@ -73,12 +76,12 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
     @Override
     public void setAutoCompleteTextView(List<String> currencies) {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+        searchViewAdapter = new ArrayAdapter<>(
                 getActivity(),
                 android.R.layout.simple_dropdown_item_1line,
                 currencies
         );
-        searchTextView.setAdapter(adapter);
+        searchTextView.setAdapter(searchViewAdapter);
     }
 
     @Override
@@ -87,12 +90,41 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
     }
 
     @Override
+    public void showSearchView() {
+        searchTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void setFocusOnSearchView() {
+        searchTextView.requestFocus();
+    }
+
+    @Override
+    public void hideSearchView() {
+        searchTextView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void cleanSearchView() {
+        searchTextView.setText("");
+    }
+
+    @Override
+    public void showNewCurrencyItem(String name) {
+        currenciesListAdapter.addCurrency(name);
+        currenciesListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void removeCurrencyFromSearch(String name) {
+        searchViewAdapter.remove(name);
+        searchViewAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String currencyName = (String) parent.getItemAtPosition(position);
-        currenciesListAdapter.addCurrency(currencyName);
-        currenciesListAdapter.notifyDataSetChanged();
-
-        searchTextView.setText("");
+        presenter.addCurrencyItem(currencyName);
     }
 
     @Override
@@ -101,6 +133,11 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
         Intent intent = new Intent(getActivity(), PricesActivity.class);
         intent.putExtra(IntentKey.CURRENCY_NAME, currencyName);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.add_button)
+    public void onAddButtonClick() {
+        presenter.showAddCurrencies();
     }
 
     private void initRecyclerView() {

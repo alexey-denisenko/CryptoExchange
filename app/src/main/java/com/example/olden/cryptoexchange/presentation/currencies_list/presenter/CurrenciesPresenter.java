@@ -57,6 +57,20 @@ public class CurrenciesPresenter implements ICurrenciesPresenter {
         iCurrenciesInteractor.saveSelectedCurrenciesList(names);
     }
 
+    @Override
+    public void showAddCurrencies() {
+        iCurrenciesView.showSearchView();
+        iCurrenciesView.setFocusOnSearchView();
+    }
+
+    @Override
+    public void addCurrencyItem(String name) {
+        iCurrenciesView.cleanSearchView();
+        iCurrenciesView.hideSearchView();
+        iCurrenciesView.showNewCurrencyItem(name);
+        iCurrenciesView.removeCurrencyFromSearch(name);
+    }
+
     private void loadCurrenciesListFromData() {
         //Todo show loading
         Disposable disposable = iCurrenciesInteractor.getCurrencyNamesList()

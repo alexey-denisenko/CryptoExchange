@@ -11,4 +11,7 @@ public interface ICurrenciesPresenter {
 
     void fillAutoCompleteList();
     void saveCurrencyNamesToStorage(List<String> names);
+
+    void showAddCurrencies();
+    void addCurrencyItem(String name);
 }
