@@ -1,4 +1,4 @@
-package com.example.olden.cryptoexchange;
+package com.example.olden.cryptoexchange.other.keys;
 
 
 public final class IntentKey {

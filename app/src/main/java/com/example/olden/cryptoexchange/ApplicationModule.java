@@ -1,11 +1,17 @@
 package com.example.olden.cryptoexchange;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
 import com.example.olden.cryptoexchange.data.network.api.CryptoCompareService;
 import com.example.olden.cryptoexchange.data.repositories.CurrenciesRepository;
 import com.example.olden.cryptoexchange.data.repositories.ICurrenciesRepository;
+import com.example.olden.cryptoexchange.other.ResponseTypeAdapterFactory;
+import com.example.olden.cryptoexchange.other.keys.SharedPreferenceKey;
+import com.example.olden.cryptoexchange.other.preferences.StringSetSetPreference;
+import com.example.olden.cryptoexchange.other.preferences.StringSetPreferenceType;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapterFactory;
@@ -37,7 +43,18 @@ public class ApplicationModule {
     }
 
     @Provides @Singleton
-    public ICurrenciesRepository provideCurrenciesRepossitory(CryptoCompareService cryptoCompareService) {
-        return new CurrenciesRepository(cryptoCompareService);
+    public ICurrenciesRepository provideCurrenciesRepossitory(CryptoCompareService cryptoCompareService,
+                                                              StringSetPreferenceType stringSetPreferenceType) {
+        return new CurrenciesRepository(cryptoCompareService, stringSetPreferenceType);
+    }
+
+    @Provides @Singleton
+    public SharedPreferences provideSharedPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(context);
+    }
+
+    @Provides @Singleton
+    public StringSetPreferenceType provideStringPreference(SharedPreferences sharedPreferences) {
+        return new StringSetSetPreference(sharedPreferences, SharedPreferenceKey.SAVED_CURRENCIES);
     }
 }

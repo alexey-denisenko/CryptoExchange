@@ -33,6 +33,8 @@ public class CurrenciesPresenter implements ICurrenciesPresenter {
     @Override
     public void bindView(ICurrenciesView view) {
         this.iCurrenciesView = view;
+        List<String> currencies = iCurrenciesInteractor.getSelectedCurrenciesList();
+        this.iCurrenciesView.showSavedCurrenciesList(currencies);
     }
 
     @Override
@@ -48,6 +50,11 @@ public class CurrenciesPresenter implements ICurrenciesPresenter {
         } else {
             loadCurrenciesListFromData();
         }
+    }
+
+    @Override
+    public void saveCurrencyNamesToStorage(List<String> names) {
+        iCurrenciesInteractor.saveSelectedCurrenciesList(names);
     }
 
     private void loadCurrenciesListFromData() {

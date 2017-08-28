@@ -6,4 +6,5 @@ public interface ICurrenciesView {
 
     void setAutoCompleteTextView(List<String> currencies);
 
+    void showSavedCurrenciesList(List<String> currencies);
 }

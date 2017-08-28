@@ -16,8 +16,8 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import com.example.olden.cryptoexchange.CryptoExchangeApplication;
-import com.example.olden.cryptoexchange.IntentKey;
 import com.example.olden.cryptoexchange.R;
+import com.example.olden.cryptoexchange.other.keys.IntentKey;
 import com.example.olden.cryptoexchange.presentation.currencies_list.di.CurrenciesListModule;
 import com.example.olden.cryptoexchange.presentation.currencies_list.presenter.ICurrenciesPresenter;
 import com.example.olden.cryptoexchange.presentation.prices.PricesActivity;
@@ -56,10 +56,7 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
 
         searchTextView.setOnItemClickListener(this);
 
-        adapter = new CurrenciesListAdapter(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        initRecyclerView();
 
         presenter.bindView(this);
         presenter.fillAutoCompleteList();
@@ -68,6 +65,7 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
 
     @Override
     public void onDestroyView() {
+        presenter.saveCurrencyNamesToStorage(adapter.getCurrencies());
         presenter.unBindView();
         super.onDestroyView();
     }
@@ -84,6 +82,11 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
     }
 
     @Override
+    public void showSavedCurrenciesList(List<String> currencies) {
+        adapter.addCurrencyList(currencies);
+    }
+
+    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String currencyName = (String) parent.getItemAtPosition(position);
         adapter.addCurrency(currencyName);
@@ -96,5 +99,12 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
         Intent intent = new Intent(getActivity(), PricesActivity.class);
         intent.putExtra(IntentKey.CURRENCY_NAME, currencyName);
         startActivity(intent);
+    }
+
+    private void initRecyclerView() {
+        adapter = new CurrenciesListAdapter(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
     }
 }
