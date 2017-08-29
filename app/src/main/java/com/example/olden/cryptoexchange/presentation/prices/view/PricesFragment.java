@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.olden.cryptoexchange.CryptoExchangeApplication;
 import com.example.olden.cryptoexchange.R;
@@ -34,6 +35,9 @@ public class PricesFragment extends Fragment implements IPricesView {
 
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
+
+    @BindView(R.id.currency_name)
+    TextView baseCurrencyName;
 
     @Inject
     IPricesPresenter<IPricesView> presenter;
@@ -69,6 +73,7 @@ public class PricesFragment extends Fragment implements IPricesView {
         initializeRecyclerView();
 
         String baseCurrency = getArguments().getString(IntentKey.CURRENCY_NAME);
+        baseCurrencyName.setText(baseCurrency);
 
         swipeRefreshLayout.setEnabled(false);
         presenter.bindView(this);

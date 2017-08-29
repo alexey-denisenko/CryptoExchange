@@ -12,6 +12,8 @@ public interface ICurrenciesView {
 
     void setFocusOnSearchView();
 
+    void hideKeyboard();
+
     void hideSearchView();
 
     void cleanSearchView();

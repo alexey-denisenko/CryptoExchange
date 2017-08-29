@@ -1,6 +1,7 @@
 package com.example.olden.cryptoexchange.presentation.currencies_list.view;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -54,10 +56,9 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
     ICurrenciesPresenter<ICurrenciesView> presenter;
 
     private CurrenciesListAdapter currenciesListAdapter;
-
     private ArrayAdapter<String> searchViewAdapter;
-
     private Snackbar snackbar;
+    private InputMethodManager inputMethodManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,6 +79,7 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
 
         initRecyclerView();
 
+        inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         snackbar = Snackbar.make(view, "Error loading currencies list", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Retry", clickView -> presenter.fillAutoCompleteList());
 
@@ -117,6 +119,12 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
     @Override
     public void setFocusOnSearchView() {
         searchTextView.requestFocus();
+        inputMethodManager.showSoftInput(searchTextView, InputMethodManager.SHOW_IMPLICIT);
+    }
+
+    @Override
+    public void hideKeyboard() {
+        inputMethodManager.hideSoftInputFromWindow(searchTextView.getWindowToken(), 0);
     }
 
     @Override
@@ -151,7 +159,7 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
 
     @Override
     public void showErrorLoading() {
-        if(!snackbar.isShown()) {
+        if (!snackbar.isShown()) {
             snackbar.show();
         }
     }

@@ -65,6 +65,7 @@ public class CurrenciesPresenter implements ICurrenciesPresenter<ICurrenciesView
     public void addCurrencyItem(String name) {
         view.cleanSearchView();
         view.hideSearchView();
+        view.hideKeyboard();
         view.showNewCurrencyItem(name);
         view.removeCurrencyFromSearch(name);
     }
