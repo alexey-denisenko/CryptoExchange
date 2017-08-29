@@ -14,9 +14,13 @@ public class PricesInteractor implements IPricesInteractor {
 
     private static final String TAG = "PricesInteractor";
 
-    public static final int UPDATE_PERIOD = 5;
+    private static final int UPDATE_PERIOD = 5;
 
-    ICurrenciesRepository repository;
+    private ICurrenciesRepository repository;
+
+    public PricesInteractor(ICurrenciesRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public Observable<PricesData> getUpdatablePrices(String from, List<String> to) {

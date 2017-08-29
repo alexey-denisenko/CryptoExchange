@@ -20,7 +20,7 @@ import com.example.olden.cryptoexchange.R;
 import com.example.olden.cryptoexchange.other.keys.IntentKey;
 import com.example.olden.cryptoexchange.presentation.currencies_list.di.CurrenciesListModule;
 import com.example.olden.cryptoexchange.presentation.currencies_list.presenter.ICurrenciesPresenter;
-import com.example.olden.cryptoexchange.presentation.prices.PricesActivity;
+import com.example.olden.cryptoexchange.presentation.prices.view.PricesActivity;
 
 import java.util.List;
 

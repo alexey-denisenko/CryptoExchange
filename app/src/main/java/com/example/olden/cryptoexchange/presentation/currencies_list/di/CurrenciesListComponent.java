@@ -4,8 +4,8 @@ import com.example.olden.cryptoexchange.presentation.currencies_list.view.Curren
 
 import dagger.Subcomponent;
 
-@Subcomponent(modules = {CurrenciesListModule.class})
 @CurrenciesListScope
+@Subcomponent(modules = {CurrenciesListModule.class})
 public interface CurrenciesListComponent {
 
     void inject(CurrenciesFragment fragment);
