@@ -12,10 +12,6 @@ import io.reactivex.Observable;
 
 public class PricesInteractor implements IPricesInteractor {
 
-    private static final String TAG = "PricesInteractor";
-
-    private static final int UPDATE_PERIOD = 5;
-
     private ICurrenciesRepository repository;
 
     public PricesInteractor(ICurrenciesRepository repository) {

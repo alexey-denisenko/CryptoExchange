@@ -42,17 +42,22 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
     RecyclerView recyclerView;
 
     @Inject
-    ICurrenciesPresenter presenter;
+    ICurrenciesPresenter<ICurrenciesView> presenter;
 
     private CurrenciesListAdapter currenciesListAdapter;
 
     private ArrayAdapter<String> searchViewAdapter;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+        CryptoExchangeApplication.appComponent(getActivity()).appComponent().plus(new CurrenciesListModule()).inject(this);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        CryptoExchangeApplication.appComponent(getActivity()).appComponent().plus(new CurrenciesListModule()).inject(this);
 
         View view = inflater.inflate(R.layout.fragment_currencies, container, false);
         ButterKnife.bind(this, view);
@@ -112,7 +117,6 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
     @Override
     public void showNewCurrencyItem(String name) {
         currenciesListAdapter.addCurrency(name);
-        currenciesListAdapter.notifyDataSetChanged();
     }
 
     @Override

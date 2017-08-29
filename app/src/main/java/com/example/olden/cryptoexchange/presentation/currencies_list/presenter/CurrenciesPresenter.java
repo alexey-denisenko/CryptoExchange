@@ -13,34 +13,34 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class CurrenciesPresenter implements ICurrenciesPresenter {
+public class CurrenciesPresenter implements ICurrenciesPresenter<ICurrenciesView> {
 
     private static final String TAG = "CurrenciesPresenter";
 
-    private ICurrenciesView iCurrenciesView;
+    private ICurrenciesView view;
 
-    private ICurrenciesInteractor iCurrenciesInteractor;
+    private ICurrenciesInteractor interactor;
     private CurrenciesPresenterCache currenciesPresenterCache;
 
     private CompositeDisposable compositeSubscription = new CompositeDisposable();
 
     public CurrenciesPresenter(ICurrenciesInteractor iCurrenciesInteractor,
                                CurrenciesPresenterCache currenciesPresenterCache) {
-        this.iCurrenciesInteractor = iCurrenciesInteractor;
+        this.interactor = iCurrenciesInteractor;
         this.currenciesPresenterCache = currenciesPresenterCache;
     }
 
     @Override
     public void bindView(ICurrenciesView view) {
-        this.iCurrenciesView = view;
-        List<String> currencies = iCurrenciesInteractor.getSelectedCurrenciesList();
-        this.iCurrenciesView.showSavedCurrenciesList(currencies);
+        this.view = view;
+        List<String> currencies = interactor.getSelectedCurrenciesList();
+        this.view.showSavedCurrenciesList(currencies);
     }
 
     @Override
     public void unBindView() {
         compositeSubscription.clear();
-        this.iCurrenciesView = null;
+        this.view = null;
     }
 
     @Override
@@ -54,26 +54,26 @@ public class CurrenciesPresenter implements ICurrenciesPresenter {
 
     @Override
     public void saveCurrencyNamesToStorage(List<String> names) {
-        iCurrenciesInteractor.saveSelectedCurrenciesList(names);
+        interactor.saveSelectedCurrenciesList(names);
     }
 
     @Override
     public void showAddCurrencies() {
-        iCurrenciesView.showSearchView();
-        iCurrenciesView.setFocusOnSearchView();
+        view.showSearchView();
+        view.setFocusOnSearchView();
     }
 
     @Override
     public void addCurrencyItem(String name) {
-        iCurrenciesView.cleanSearchView();
-        iCurrenciesView.hideSearchView();
-        iCurrenciesView.showNewCurrencyItem(name);
-        iCurrenciesView.removeCurrencyFromSearch(name);
+        view.cleanSearchView();
+        view.hideSearchView();
+        view.showNewCurrencyItem(name);
+        view.removeCurrencyFromSearch(name);
     }
 
     private void loadCurrenciesListFromData() {
         //Todo show loading
-        Disposable disposable = iCurrenciesInteractor.getCurrencyNamesList()
+        Disposable disposable = interactor.getCurrencyNamesList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleSuccessLoadCurrenciesList,
@@ -90,9 +90,9 @@ public class CurrenciesPresenter implements ICurrenciesPresenter {
 
     private void setCurrenciesListToView(List<String> strings) {
         //Todo hide loading
-        List<String> currencies = iCurrenciesInteractor.getSelectedCurrenciesList();
+        List<String> currencies = interactor.getSelectedCurrenciesList();
         strings.removeAll(currencies);
-        iCurrenciesView.setAutoCompleteTextView(strings);
+        view.setAutoCompleteTextView(strings);
     }
 
     private void handleErrorLoadCurrenciesList(Throwable throwable) {

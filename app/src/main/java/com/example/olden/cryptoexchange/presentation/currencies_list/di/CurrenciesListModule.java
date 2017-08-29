@@ -6,6 +6,7 @@ import com.example.olden.cryptoexchange.data.repositories.ICurrenciesRepository;
 import com.example.olden.cryptoexchange.presentation.currencies_list.presenter.CurrenciesPresenter;
 import com.example.olden.cryptoexchange.presentation.currencies_list.presenter.CurrenciesPresenterCache;
 import com.example.olden.cryptoexchange.presentation.currencies_list.presenter.ICurrenciesPresenter;
+import com.example.olden.cryptoexchange.presentation.currencies_list.view.ICurrenciesView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -15,7 +16,7 @@ public class CurrenciesListModule {
 
     @Provides
     @CurrenciesListScope
-    public ICurrenciesPresenter provideCurrenciesPresenter(ICurrenciesInteractor interactor, CurrenciesPresenterCache cache) {
+    public ICurrenciesPresenter<ICurrenciesView> provideCurrenciesPresenter(ICurrenciesInteractor interactor, CurrenciesPresenterCache cache) {
         return new CurrenciesPresenter(interactor, cache);
     }
 

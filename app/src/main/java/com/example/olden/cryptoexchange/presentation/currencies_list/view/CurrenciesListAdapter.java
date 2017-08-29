@@ -38,15 +38,17 @@ public class CurrenciesListAdapter extends RecyclerView.Adapter<CurrenciesListVi
 
     @Override
     public int getItemViewType(int position) {
-        return R.layout.currency_item;
+        return R.layout.item_currency;
     }
 
     public void addCurrency(String name) {
         currencies.add(name);
+        notifyDataSetChanged();
     }
 
     public void addCurrencyList(List<String> names) {
         currencies.addAll(names);
+        notifyDataSetChanged();
     }
 
     public List<String> getCurrencies() {

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CryptoExchange</string>
+    <string name="back">Back</string>
+    <string name="no_data_available">Sorry, looks like no data available for this currency</string>
 </resources>

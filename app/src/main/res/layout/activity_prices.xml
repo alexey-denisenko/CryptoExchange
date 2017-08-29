@@ -6,10 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.olden.cryptoexchange.presentation.prices.view.PricesActivity">
 
-    <fragment
+    <FrameLayout
         android:id="@+id/prices_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.example.olden.cryptoexchange.presentation.prices.view.PricesFragment"/>
+        android:layout_height="match_parent"/>
 
 </android.support.constraint.ConstraintLayout>
