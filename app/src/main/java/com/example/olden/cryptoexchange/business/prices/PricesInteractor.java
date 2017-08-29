@@ -1,0 +1,27 @@
+package com.example.olden.cryptoexchange.business.prices;
+
+
+import com.example.olden.cryptoexchange.data.network.models.response.PricesData;
+import com.example.olden.cryptoexchange.data.repositories.ICurrenciesRepository;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+
+
+public class PricesInteractor implements IPricesInteractor {
+
+    private static final String TAG = "PricesInteractor";
+
+    public static final int UPDATE_PERIOD = 5;
+
+    ICurrenciesRepository repository;
+
+    @Override
+    public Observable<PricesData> getUpdatablePrices(String from, List<String> to) {
+        return Observable.interval(UPDATE_PERIOD, TimeUnit.SECONDS)
+                .flatMap(time -> repository.getPrices(from, to).toObservable())
+                .retry();
+    }
+}
