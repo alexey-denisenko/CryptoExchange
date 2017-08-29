@@ -1,7 +1,7 @@
 package com.example.olden.cryptoexchange.presentation.prices.presenter;
 
 
-import android.util.Log;
+import android.support.annotation.Nullable;
 
 import com.example.olden.cryptoexchange.business.prices.IPricesInteractor;
 import com.example.olden.cryptoexchange.data.network.models.response.Price;
@@ -20,6 +20,8 @@ public class PricesPresenter implements IPricesPresenter<IPricesView> {
 
     private PricesPresenterCache cache;
     private IPricesInteractor interactor;
+
+    @Nullable
     private IPricesView view;
 
     private final List<String> toPrices = new ArrayList<String>() {{
@@ -53,6 +55,10 @@ public class PricesPresenter implements IPricesPresenter<IPricesView> {
             view.hideLoading();
             view.showNewPrices(cache.getPrices());
         }
+        loadPricesFromData(fromPrice);
+    }
+
+    private void loadPricesFromData(String fromPrice) {
         interactor.getUpdatablePrices(fromPrice, toPrices)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -62,17 +68,20 @@ public class PricesPresenter implements IPricesPresenter<IPricesView> {
 
     private void handleSuccessLoadPrices(List<Price> prices) {
 
-        view.hideLoading();
-        if(prices.isEmpty()) {
-            view.showNoDataLoaded();
-        } else {
-            cache.setPrices(prices);
-            view.showNewPrices(prices);
+        if (view != null) {
+            view.hideLoading();
+            if (prices.isEmpty()) {
+                view.showNoDataLoaded();
+            } else {
+                cache.setPrices(prices);
+                view.showNewPrices(prices);
+            }
         }
     }
 
     private void handleErrorLoadPrices(Throwable throwable) {
-        //Todo show error
-        Log.e(TAG, "handleErrorLoadPrices: ", throwable);
+        if (view != null) {
+            view.showNoDataLoaded();
+        }
     }
 }

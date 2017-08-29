@@ -17,22 +17,9 @@
         android:layout_marginStart="@dimen/spacing_between_content"
         android:layout_marginTop="@dimen/spacing_between_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/delete_selected_currency"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="BTC" />
-
-    <ImageView
-        android:id="@+id/delete_selected_currency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_between_content"
-        android:layout_marginEnd="@dimen/spacing_between_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="@dimen/spacing_between_content"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/close_circle_outline" />
+        tools:text="BTC" />
 
 </android.support.constraint.ConstraintLayout>

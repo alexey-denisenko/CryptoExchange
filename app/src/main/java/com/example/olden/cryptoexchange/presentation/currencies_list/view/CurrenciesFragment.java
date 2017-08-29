@@ -4,7 +4,10 @@ package com.example.olden.cryptoexchange.presentation.currencies_list.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,12 +44,20 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
     @BindView(R.id.currencies_list)
     RecyclerView recyclerView;
 
+    @BindView(R.id.add_button)
+    FloatingActionButton fabAdd;
+
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout refreshLayout;
+
     @Inject
     ICurrenciesPresenter<ICurrenciesView> presenter;
 
     private CurrenciesListAdapter currenciesListAdapter;
 
     private ArrayAdapter<String> searchViewAdapter;
+
+    private Snackbar snackbar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,8 +74,12 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
         ButterKnife.bind(this, view);
 
         searchTextView.setOnItemClickListener(this);
+        refreshLayout.setEnabled(false);
 
         initRecyclerView();
+
+        snackbar = Snackbar.make(view, "Error loading currencies list", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Retry", clickView -> presenter.fillAutoCompleteList());
 
         presenter.bindView(this);
         presenter.fillAutoCompleteList();
@@ -112,6 +127,33 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
     @Override
     public void cleanSearchView() {
         searchTextView.setText("");
+    }
+
+    @Override
+    public void showLoading() {
+        refreshLayout.setRefreshing(true);
+    }
+
+    @Override
+    public void hideLoading() {
+        refreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void enableAddButton() {
+        fabAdd.setEnabled(true);
+    }
+
+    @Override
+    public void disableAddButton() {
+        fabAdd.setEnabled(false);
+    }
+
+    @Override
+    public void showErrorLoading() {
+        if(!snackbar.isShown()) {
+            snackbar.show();
+        }
     }
 
     @Override

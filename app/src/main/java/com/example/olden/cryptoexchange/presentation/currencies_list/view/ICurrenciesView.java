@@ -16,6 +16,16 @@ public interface ICurrenciesView {
 
     void cleanSearchView();
 
+    void showLoading();
+
+    void hideLoading();
+
+    void enableAddButton();
+
+    void disableAddButton();
+
+    void showErrorLoading();
+
     void showNewCurrencyItem(String name);
 
     void removeCurrencyFromSearch(String name);

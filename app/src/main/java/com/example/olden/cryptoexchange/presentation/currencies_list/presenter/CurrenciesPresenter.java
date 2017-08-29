@@ -1,8 +1,6 @@
 package com.example.olden.cryptoexchange.presentation.currencies_list.presenter;
 
 
-import android.util.Log;
-
 import com.example.olden.cryptoexchange.business.currencies_list.ICurrenciesInteractor;
 import com.example.olden.cryptoexchange.presentation.currencies_list.view.ICurrenciesView;
 
@@ -72,7 +70,9 @@ public class CurrenciesPresenter implements ICurrenciesPresenter<ICurrenciesView
     }
 
     private void loadCurrenciesListFromData() {
-        //Todo show loading
+        view.showLoading();
+        view.disableAddButton();
+
         Disposable disposable = interactor.getCurrencyNamesList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -89,14 +89,16 @@ public class CurrenciesPresenter implements ICurrenciesPresenter<ICurrenciesView
     }
 
     private void setCurrenciesListToView(List<String> strings) {
-        //Todo hide loading
+        view.hideLoading();
+        view.enableAddButton();
+
         List<String> currencies = interactor.getSelectedCurrenciesList();
         strings.removeAll(currencies);
         view.setAutoCompleteTextView(strings);
     }
 
     private void handleErrorLoadCurrenciesList(Throwable throwable) {
-        //Todo show error
-        Log.e(TAG, "handleErrorLoadCurrenciesList: ", throwable);
+        view.hideLoading();
+        view.showErrorLoading();
     }
 }
