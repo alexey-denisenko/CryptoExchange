@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import com.example.olden.cryptoexchange.data.network.api.CryptoCompareService;
 import com.example.olden.cryptoexchange.data.repositories.CurrenciesRepository;
 import com.example.olden.cryptoexchange.data.repositories.ICurrenciesRepository;
+import com.example.olden.cryptoexchange.data.repositories.cache.CurrenciesCache;
+import com.example.olden.cryptoexchange.data.repositories.cache.PricesCache;
 import com.example.olden.cryptoexchange.other.ResponseTypeAdapterFactory;
 import com.example.olden.cryptoexchange.other.keys.SharedPreferenceKey;
 import com.example.olden.cryptoexchange.other.preferences.StringSetSetPreference;
@@ -44,8 +46,10 @@ public class ApplicationModule {
 
     @Provides @Singleton
     public ICurrenciesRepository provideCurrenciesRepossitory(CryptoCompareService cryptoCompareService,
-                                                              StringSetPreferenceType stringSetPreferenceType) {
-        return new CurrenciesRepository(cryptoCompareService, stringSetPreferenceType);
+                                                              StringSetPreferenceType stringSetPreferenceType,
+                                                              CurrenciesCache currenciesCache,
+                                                              PricesCache pricesCache) {
+        return new CurrenciesRepository(cryptoCompareService, stringSetPreferenceType, currenciesCache, pricesCache);
     }
 
     @Provides @Singleton
@@ -56,5 +60,15 @@ public class ApplicationModule {
     @Provides @Singleton
     public StringSetPreferenceType provideStringPreference(SharedPreferences sharedPreferences) {
         return new StringSetSetPreference(sharedPreferences, SharedPreferenceKey.SAVED_CURRENCIES);
+    }
+
+    @Provides @Singleton
+    public CurrenciesCache provideCurrenciesCache() {
+        return new CurrenciesCache();
+    }
+
+    @Provides @Singleton
+    public PricesCache providePricesCache() {
+        return new PricesCache();
     }
 }

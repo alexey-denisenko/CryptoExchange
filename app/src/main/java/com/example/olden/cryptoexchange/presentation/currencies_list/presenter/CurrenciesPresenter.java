@@ -18,14 +18,11 @@ public class CurrenciesPresenter implements ICurrenciesPresenter<ICurrenciesView
     private ICurrenciesView view;
 
     private ICurrenciesInteractor interactor;
-    private CurrenciesPresenterCache currenciesPresenterCache;
 
     private CompositeDisposable compositeSubscription = new CompositeDisposable();
 
-    public CurrenciesPresenter(ICurrenciesInteractor iCurrenciesInteractor,
-                               CurrenciesPresenterCache currenciesPresenterCache) {
+    public CurrenciesPresenter(ICurrenciesInteractor iCurrenciesInteractor) {
         this.interactor = iCurrenciesInteractor;
-        this.currenciesPresenterCache = currenciesPresenterCache;
     }
 
     @Override
@@ -43,11 +40,7 @@ public class CurrenciesPresenter implements ICurrenciesPresenter<ICurrenciesView
 
     @Override
     public void fillAutoCompleteList() {
-        if (currenciesPresenterCache.isCurrenciesListCached()) {
-            setCurrenciesListToView(currenciesPresenterCache.getCurrenciesList());
-        } else {
-            loadCurrenciesListFromData();
-        }
+        loadCurrenciesListFromData();
     }
 
     @Override
@@ -85,7 +78,6 @@ public class CurrenciesPresenter implements ICurrenciesPresenter<ICurrenciesView
 
     private void handleSuccessLoadCurrenciesList(List<String> strings) {
 
-        currenciesPresenterCache.setCurrenciesList(strings);
         setCurrenciesListToView(strings);
     }
 

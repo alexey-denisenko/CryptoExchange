@@ -1,4 +1,4 @@
-package com.example.olden.cryptoexchange.presentation.prices.presenter;
+package com.example.olden.cryptoexchange.data.repositories.cache;
 
 import com.example.olden.cryptoexchange.business.prices.IPricesInteractor;
 import com.example.olden.cryptoexchange.data.network.models.response.Price;
@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class PricesPresenterCache {
+public class PricesCache {
 
     private List<Price> prices;
 

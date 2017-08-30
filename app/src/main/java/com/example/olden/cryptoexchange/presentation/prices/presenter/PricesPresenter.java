@@ -18,7 +18,6 @@ public class PricesPresenter implements IPricesPresenter<IPricesView> {
 
     private static final String TAG = "PricesPresenter";
 
-    private PricesPresenterCache cache;
     private IPricesInteractor interactor;
 
     @Nullable
@@ -31,8 +30,7 @@ public class PricesPresenter implements IPricesPresenter<IPricesView> {
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    public PricesPresenter(PricesPresenterCache cache, IPricesInteractor interactor) {
-        this.cache = cache;
+    public PricesPresenter(IPricesInteractor interactor) {
         this.interactor = interactor;
     }
 
@@ -51,11 +49,11 @@ public class PricesPresenter implements IPricesPresenter<IPricesView> {
     public void subscribeOnPricesUpdate(String fromPrice) {
 
         view.showLoading();
-        if (cache.isCacheExists()) {
-            view.hideLoading();
-            view.showNewPrices(cache.getPrices());
-        }
-        loadPricesFromData(fromPrice);
+//        if (cache.isCacheExists()) {
+//            view.hideLoading();
+//            view.showNewPrices(cache.getPrices());
+//        }
+//        loadPricesFromData(fromPrice);
     }
 
     private void loadPricesFromData(String fromPrice) {
@@ -73,7 +71,7 @@ public class PricesPresenter implements IPricesPresenter<IPricesView> {
             if (prices.isEmpty()) {
                 view.showNoDataLoaded();
             } else {
-                cache.setPrices(prices);
+//                cache.setPrices(prices);
                 view.showNewPrices(prices);
             }
         }
