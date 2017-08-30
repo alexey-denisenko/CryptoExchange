@@ -2,45 +2,26 @@ package com.example.olden.cryptoexchange.presentation.currencies_list.presenter;
 
 
 import com.example.olden.cryptoexchange.business.currencies_list.ICurrenciesInteractor;
+import com.example.olden.cryptoexchange.common.mvp.BasePresenter;
 import com.example.olden.cryptoexchange.presentation.currencies_list.view.ICurrenciesView;
 
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class CurrenciesPresenter implements ICurrenciesPresenter<ICurrenciesView> {
-
-    private static final String TAG = "CurrenciesPresenter";
-
-    private ICurrenciesView view;
+public class CurrenciesPresenter extends BasePresenter<ICurrenciesView> implements ICurrenciesPresenter<ICurrenciesView> {
 
     private ICurrenciesInteractor interactor;
-
-    private CompositeDisposable compositeSubscription = new CompositeDisposable();
 
     public CurrenciesPresenter(ICurrenciesInteractor iCurrenciesInteractor) {
         this.interactor = iCurrenciesInteractor;
     }
 
     @Override
-    public void bindView(ICurrenciesView view) {
-        this.view = view;
-        List<String> currencies = interactor.getSelectedCurrenciesList();
-        this.view.showSavedCurrenciesList(currencies);
-    }
-
-    @Override
-    public void unBindView() {
-        compositeSubscription.clear();
-        this.view = null;
-    }
-
-    @Override
-    public void fillAutoCompleteList() {
-        loadCurrenciesListFromData();
+    public void fillAutoCompleteList(boolean forceUpdate) {
+        loadCurrenciesListFromData(forceUpdate);
     }
 
     @Override
@@ -50,29 +31,29 @@ public class CurrenciesPresenter implements ICurrenciesPresenter<ICurrenciesView
 
     @Override
     public void showAddCurrencies() {
-        view.showSearchView();
-        view.setFocusOnSearchView();
+        getViewOrThrow().showSearchView();
+        getViewOrThrow().setFocusOnSearchView();
     }
 
     @Override
     public void addCurrencyItem(String name) {
-        view.cleanSearchView();
-        view.hideSearchView();
-        view.hideKeyboard();
-        view.showNewCurrencyItem(name);
-        view.removeCurrencyFromSearch(name);
+        getViewOrThrow().cleanSearchView();
+        getViewOrThrow().hideSearchView();
+        getViewOrThrow().hideKeyboard();
+        getViewOrThrow().showNewCurrencyItem(name);
+        getViewOrThrow().removeCurrencyFromSearch(name);
     }
 
-    private void loadCurrenciesListFromData() {
-        view.showLoading();
-        view.disableAddButton();
+    private void loadCurrenciesListFromData(boolean forceRefresh) {
+        getViewOrThrow().showLoading();
+        getViewOrThrow().disableAddButton();
 
-        Disposable disposable = interactor.getCurrencyNamesList()
+        Disposable disposable = interactor.getCurrencyNamesList(forceRefresh)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleSuccessLoadCurrenciesList,
                         this::handleErrorLoadCurrenciesList);
-        compositeSubscription.add(disposable);
+        compositeDisposable.add(disposable);
     }
 
 
@@ -82,16 +63,16 @@ public class CurrenciesPresenter implements ICurrenciesPresenter<ICurrenciesView
     }
 
     private void setCurrenciesListToView(List<String> strings) {
-        view.hideLoading();
-        view.enableAddButton();
+        getViewOrThrow().hideLoading();
+        getViewOrThrow().enableAddButton();
 
         List<String> currencies = interactor.getSelectedCurrenciesList();
         strings.removeAll(currencies);
-        view.setAutoCompleteTextView(strings);
+        getViewOrThrow().setAutoCompleteTextView(strings);
     }
 
     private void handleErrorLoadCurrenciesList(Throwable throwable) {
-        view.hideLoading();
-        view.showErrorLoading();
+        getViewOrThrow().hideLoading();
+        getViewOrThrow().showErrorLoading();
     }
 }

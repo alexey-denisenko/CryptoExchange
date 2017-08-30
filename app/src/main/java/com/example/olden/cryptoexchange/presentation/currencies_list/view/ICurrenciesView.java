@@ -1,8 +1,10 @@
 package com.example.olden.cryptoexchange.presentation.currencies_list.view;
 
+import com.example.olden.cryptoexchange.common.mvp.ICommonView;
+
 import java.util.List;
 
-public interface ICurrenciesView {
+public interface ICurrenciesView extends ICommonView {
 
     void setAutoCompleteTextView(List<String> currencies);
 

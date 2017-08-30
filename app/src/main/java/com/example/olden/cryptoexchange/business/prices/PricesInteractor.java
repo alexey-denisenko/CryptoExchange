@@ -20,7 +20,7 @@ public class PricesInteractor implements IPricesInteractor {
 
     @Override
     public Observable<PricesData> getUpdatablePrices(String from, List<String> to) {
-        return Observable.interval(UPDATE_PERIOD, TimeUnit.SECONDS)
+        return Observable.interval(INITIAL_DELAY, UPDATE_PERIOD, TimeUnit.MILLISECONDS)
                 .flatMap(time -> repository.getPrices(from, to).toObservable())
                 .retry();
     }

@@ -7,7 +7,7 @@ import io.reactivex.Single;
 
 public interface ICurrenciesInteractor {
 
-    Single<List<String>> getCurrencyNamesList();
+    Single<List<String>> getCurrencyNamesList(boolean forceRefresh);
 
     void saveSelectedCurrenciesList(List<String> currencies);
 

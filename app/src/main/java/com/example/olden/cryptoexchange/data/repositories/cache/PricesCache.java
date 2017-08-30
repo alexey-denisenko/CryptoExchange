@@ -1,25 +1,23 @@
 package com.example.olden.cryptoexchange.data.repositories.cache;
 
 import com.example.olden.cryptoexchange.business.prices.IPricesInteractor;
-import com.example.olden.cryptoexchange.data.network.models.response.Price;
-
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+import com.example.olden.cryptoexchange.data.network.models.response.PricesData;
 
 public class PricesCache {
 
-    private List<Price> prices;
+    private PricesData prices;
 
     private long cachingTime;
 
-    public List<Price> getPrices() {
+    private final long expirationThresholdInMillis = Math.round(IPricesInteractor.UPDATE_PERIOD * 0.8);
+
+    public PricesData getPrices() {
         return prices;
     }
 
-    public void setPrices(List<Price> prices) {
+    public void setPrices(PricesData prices) {
+        cachingTime = System.currentTimeMillis();
         this.prices = prices;
-        cachingTime = new Date().getTime();
     }
 
     public boolean isCacheExists() {
@@ -27,7 +25,10 @@ public class PricesCache {
     }
 
     public boolean isCacheUpToDate() {
-        long currentTime = new Date().getTime();
-        return TimeUnit.MILLISECONDS.toSeconds(currentTime - cachingTime) > IPricesInteractor.UPDATE_PERIOD;
+
+        long currentTime = System.currentTimeMillis();
+        long difference = currentTime - cachingTime;
+
+        return difference <= expirationThresholdInMillis;
     }
 }

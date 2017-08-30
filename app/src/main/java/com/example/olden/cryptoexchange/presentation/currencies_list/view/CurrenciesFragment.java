@@ -20,7 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
-import com.example.olden.cryptoexchange.CryptoExchangeApplication;
+import com.example.olden.cryptoexchange.common.CryptoExchangeApplication;
 import com.example.olden.cryptoexchange.R;
 import com.example.olden.cryptoexchange.other.keys.IntentKey;
 import com.example.olden.cryptoexchange.presentation.currencies_list.di.CurrenciesListModule;
@@ -37,8 +37,6 @@ import butterknife.OnClick;
 
 public class CurrenciesFragment extends Fragment implements ICurrenciesView,
         AdapterView.OnItemClickListener, CurrenciesListViewHolder.OnCurrencySelectedListener {
-
-    private static final String TAG = "CurrenciesFragment";
 
     @BindView(R.id.currencies_search_tv)
     AutoCompleteTextView searchTextView;
@@ -63,7 +61,6 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
         CryptoExchangeApplication.appComponent(getActivity()).appComponent().plus(new CurrenciesListModule()).inject(this);
     }
 
@@ -81,10 +78,12 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
 
         inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         snackbar = Snackbar.make(view, "Error loading currencies list", Snackbar.LENGTH_INDEFINITE)
-                .setAction("Retry", clickView -> presenter.fillAutoCompleteList());
+                .setAction("Retry", clickView -> {
+                    presenter.fillAutoCompleteList(true);
+                });
 
         presenter.bindView(this);
-        presenter.fillAutoCompleteList();
+        presenter.fillAutoCompleteList(false);
         return view;
     }
 

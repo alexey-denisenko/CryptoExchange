@@ -1,8 +1,6 @@
 package com.example.olden.cryptoexchange.data.repositories;
 
 
-import android.util.Log;
-
 import com.example.olden.cryptoexchange.data.network.api.CryptoCompareService;
 import com.example.olden.cryptoexchange.data.network.models.response.CoinsData;
 import com.example.olden.cryptoexchange.data.network.models.response.PricesData;
@@ -17,8 +15,6 @@ import java.util.Set;
 import io.reactivex.Single;
 
 public class CurrenciesRepository implements ICurrenciesRepository {
-
-    private static final String TAG = "CurrenciesRepository";
 
     private CryptoCompareService cryptoCompareService;
 
@@ -39,16 +35,20 @@ public class CurrenciesRepository implements ICurrenciesRepository {
     public Single<CoinsData> getCoinsData() {
 
         if (currenciesCache.isCurrenciesListCached() && currenciesCache.isCacheUpToDate()) {
-            Log.d(TAG, "getCoinsData: cache");
             return Single.just(currenciesCache.getCurrenciesList());
         }
 
-        return getFromRemoteSourceAndCache();
+        return getCurrenciesFromRemoteSourceAndCache();
     }
 
     @Override
     public Single<PricesData> getPrices(String from, List<String> to) {
-        return cryptoCompareService.getPrices(from, to);
+
+        if (pricesCache.isCacheUpToDate() && pricesCache.isCacheExists()) {
+            return Single.just(pricesCache.getPrices());
+        }
+
+        return getPricesFromRemoteSourceAndCache(from, to);
     }
 
     @Override
@@ -66,12 +66,25 @@ public class CurrenciesRepository implements ICurrenciesRepository {
         return new HashSet<>();
     }
 
-    private Single<CoinsData> getFromRemoteSourceAndCache() {
-        Log.d(TAG, "getFromRemoteSourceAndCache: server");
+    @Override
+    public void refreshCurrencies() {
+        currenciesCache.setCacheUpToDate(false);
+    }
+
+    private Single<CoinsData> getCurrenciesFromRemoteSourceAndCache() {
+
         return cryptoCompareService.getCoinsData()
                 .doOnSuccess(coinsData -> {
                     currenciesCache.setCurrenciesList(coinsData);
                     currenciesCache.setCacheUpToDate(true);
+                });
+    }
+
+    private Single<PricesData> getPricesFromRemoteSourceAndCache(String from, List<String> to) {
+
+        return cryptoCompareService.getPrices(from, to)
+                .doOnSuccess(pricesData -> {
+                    pricesCache.setPrices(pricesData);
                 });
     }
 }

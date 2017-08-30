@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.olden.cryptoexchange.CryptoExchangeApplication;
+import com.example.olden.cryptoexchange.common.CryptoExchangeApplication;
 import com.example.olden.cryptoexchange.R;
 import com.example.olden.cryptoexchange.data.network.models.response.Price;
 import com.example.olden.cryptoexchange.other.keys.IntentKey;
@@ -59,7 +59,6 @@ public class PricesFragment extends Fragment implements IPricesView {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
         CryptoExchangeApplication.appComponent(getActivity()).appComponent().plus(new PricesModule()).inject(this);
     }
 

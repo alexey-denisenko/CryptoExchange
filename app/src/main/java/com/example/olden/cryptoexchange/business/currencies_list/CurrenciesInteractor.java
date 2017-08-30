@@ -19,7 +19,11 @@ public class CurrenciesInteractor implements ICurrenciesInteractor {
     }
 
     @Override
-    public Single<List<String>> getCurrencyNamesList() {
+    public Single<List<String>> getCurrencyNamesList(boolean forceRefresh) {
+
+        if(forceRefresh) {
+            iCurrenciesRepository.refreshCurrencies();
+        }
 
         return iCurrenciesRepository.getCoinsData()
                 .map(coinsData -> new ArrayList<>(coinsData.data().keySet()));

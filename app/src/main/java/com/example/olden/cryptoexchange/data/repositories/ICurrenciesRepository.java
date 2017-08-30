@@ -10,6 +10,10 @@ import io.reactivex.Single;
 
 public interface ICurrenciesRepository {
 
+    int UPDATE_PERIOD = 5;
+
+    int INITIAL_DELAY = 0;
+
     Single<CoinsData> getCoinsData();
 
     Single<PricesData> getPrices(String from, List<String> to);
@@ -17,4 +21,6 @@ public interface ICurrenciesRepository {
     void saveSelectedCurrencies(Set<String> currencies);
 
     Set<String> getSelectedCurrencies();
+
+    void refreshCurrencies();
 }

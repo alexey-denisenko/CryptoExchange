@@ -1,4 +1,4 @@
-package com.example.olden.cryptoexchange;
+package com.example.olden.cryptoexchange.common;
 
 import android.content.Context;
 import android.content.SharedPreferences;

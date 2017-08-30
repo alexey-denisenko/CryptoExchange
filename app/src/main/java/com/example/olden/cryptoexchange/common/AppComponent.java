@@ -1,6 +1,7 @@
-package com.example.olden.cryptoexchange;
+package com.example.olden.cryptoexchange.common;
 
 
+import com.example.olden.cryptoexchange.OkHttpInterceptorsModule;
 import com.example.olden.cryptoexchange.data.network.NetworkModule;
 import com.example.olden.cryptoexchange.data.network.api.ApiModule;
 import com.example.olden.cryptoexchange.presentation.currencies_list.di.CurrenciesListComponent;
