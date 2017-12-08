@@ -10,15 +10,22 @@ import com.google.gson.TypeAdapterFactory;
 
 import java.util.List;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.example.olden.cryptoexchange.di.Qualifiers.IO_THREAD;
+import static com.example.olden.cryptoexchange.di.Qualifiers.UI_THREAD;
 
 @Module
 public class NetworkModule {
@@ -65,5 +72,15 @@ public class NetworkModule {
         return new GsonBuilder().
                 registerTypeAdapterFactory(typeAdapterFactory)
                 .create();
+    }
+
+    @Provides @NonNull @Singleton @Named(IO_THREAD)
+    public Scheduler provideIoScheduler() {
+        return Schedulers.io();
+    }
+
+    @Provides @NonNull @Singleton @Named(UI_THREAD)
+    public Scheduler provideUiScheduler() {
+        return AndroidSchedulers.mainThread();
     }
 }
