@@ -1,4 +1,4 @@
-package com.example.olden.cryptoexchange.common;
+package com.example.olden.cryptoexchange.common.di;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,8 +12,8 @@ import com.example.olden.cryptoexchange.data.repositories.cache.CurrenciesCache;
 import com.example.olden.cryptoexchange.data.repositories.cache.PricesCache;
 import com.example.olden.cryptoexchange.other.ResponseTypeAdapterFactory;
 import com.example.olden.cryptoexchange.other.keys.SharedPreferenceKey;
-import com.example.olden.cryptoexchange.other.preferences.StringSetSetPreference;
 import com.example.olden.cryptoexchange.other.preferences.StringSetPreferenceType;
+import com.example.olden.cryptoexchange.other.preferences.StringSetSetPreference;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapterFactory;
@@ -23,12 +23,13 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
+
 @Module
-public class ApplicationModule {
+public class AppModule {
 
     private Context context;
 
-    public ApplicationModule(Context context) {
+    public AppModule(Context context) {
         this.context = context;
     }
 
@@ -58,7 +59,7 @@ public class ApplicationModule {
     }
 
     @Provides @Singleton
-    public StringSetPreferenceType provideStringPreference(SharedPreferences sharedPreferences) {
+    public StringSetPreferenceType provideStringSetPreference(SharedPreferences sharedPreferences) {
         return new StringSetSetPreference(sharedPreferences, SharedPreferenceKey.SAVED_CURRENCIES);
     }
 

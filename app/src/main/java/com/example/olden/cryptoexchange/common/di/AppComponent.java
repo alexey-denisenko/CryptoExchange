@@ -1,4 +1,4 @@
-package com.example.olden.cryptoexchange.common;
+package com.example.olden.cryptoexchange.common.di;
 
 
 import com.example.olden.cryptoexchange.OkHttpInterceptorsModule;
@@ -15,7 +15,7 @@ import dagger.Component;
 
 @Singleton
 @Component(modules = {
-        ApplicationModule.class,
+        AppModule.class,
         ApiModule.class,
         NetworkModule.class,
         OkHttpInterceptorsModule.class
