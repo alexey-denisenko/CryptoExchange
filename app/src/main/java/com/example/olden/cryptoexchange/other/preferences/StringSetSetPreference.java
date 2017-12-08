@@ -28,7 +28,7 @@ public class StringSetSetPreference implements StringSetPreferenceType {
     }
 
     @Override
-    public boolean isSet() {
+    public boolean contains() {
         return this.sharedPreferences.contains(this.key);
     }
 

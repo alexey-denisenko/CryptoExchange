@@ -89,7 +89,6 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
 
     @Override
     public void onDestroyView() {
-        presenter.saveCurrencyNamesToStorage(currenciesListAdapter.getCurrencies());
         presenter.unBindView();
         super.onDestroyView();
     }

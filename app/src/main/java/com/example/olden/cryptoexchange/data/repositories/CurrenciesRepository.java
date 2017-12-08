@@ -12,8 +12,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.reactivex.Single;
 
+@Singleton
 public class CurrenciesRepository implements ICurrenciesRepository {
 
     private CryptoCompareService cryptoCompareService;
@@ -23,6 +27,7 @@ public class CurrenciesRepository implements ICurrenciesRepository {
     private CurrenciesCache currenciesCache;
     private PricesCache pricesCache;
 
+    @Inject
     public CurrenciesRepository(CryptoCompareService cryptoCompareService, StringSetPreferenceType stringSetPreferenceType, CurrenciesCache currenciesCache, PricesCache pricesCache) {
 
         this.cryptoCompareService = cryptoCompareService;
@@ -59,7 +64,7 @@ public class CurrenciesRepository implements ICurrenciesRepository {
     @Override
     public Set<String> getSelectedCurrencies() {
 
-        if (stringSetPreferenceType.isSet()) {
+        if (stringSetPreferenceType.contains()) {
             return stringSetPreferenceType.get();
         }
 

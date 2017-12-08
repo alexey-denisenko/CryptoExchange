@@ -19,7 +19,7 @@ public class BasePresenter<V extends ICommonView> implements ICommonPresenter<V>
     }
 
     @Override
-    public final void bindView(V view) {
+    public void bindView(V view) {
         this.view = view;
     }
 

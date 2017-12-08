@@ -11,5 +11,7 @@ public interface ICurrenciesInteractor {
 
     void saveSelectedCurrenciesList(List<String> currencies);
 
+    void saveSelectedCurrency(String name);
+
     List<String> getSelectedCurrenciesList();
 }

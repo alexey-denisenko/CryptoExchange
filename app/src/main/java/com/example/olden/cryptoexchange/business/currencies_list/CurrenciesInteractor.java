@@ -2,18 +2,23 @@ package com.example.olden.cryptoexchange.business.currencies_list;
 
 
 import com.example.olden.cryptoexchange.data.repositories.ICurrenciesRepository;
+import com.example.olden.cryptoexchange.presentation.currencies_list.di.CurrenciesListScope;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 import io.reactivex.Single;
 
+@CurrenciesListScope
 public class CurrenciesInteractor implements ICurrenciesInteractor {
 
     private ICurrenciesRepository iCurrenciesRepository;
 
+    @Inject
     public CurrenciesInteractor(ICurrenciesRepository iCurrenciesRepository) {
         this.iCurrenciesRepository = iCurrenciesRepository;
     }
@@ -32,6 +37,13 @@ public class CurrenciesInteractor implements ICurrenciesInteractor {
     @Override
     public void saveSelectedCurrenciesList(List<String> currencies) {
         Set<String> currenciesSet = new HashSet<>(currencies);
+        iCurrenciesRepository.saveSelectedCurrencies(currenciesSet);
+    }
+
+    @Override
+    public void saveSelectedCurrency(String name) {
+        Set<String> currenciesSet = iCurrenciesRepository.getSelectedCurrencies();
+        currenciesSet.add(name);
         iCurrenciesRepository.saveSelectedCurrencies(currenciesSet);
     }
 

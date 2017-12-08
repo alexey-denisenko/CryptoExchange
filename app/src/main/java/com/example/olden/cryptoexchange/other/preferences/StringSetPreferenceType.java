@@ -6,7 +6,7 @@ public interface StringSetPreferenceType {
 
     Set<String> get();
 
-    boolean isSet();
+    boolean contains();
 
     void set(Set<String> value);
 

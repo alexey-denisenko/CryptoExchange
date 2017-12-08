@@ -3,20 +3,32 @@ package com.example.olden.cryptoexchange.presentation.currencies_list.presenter;
 
 import com.example.olden.cryptoexchange.business.currencies_list.ICurrenciesInteractor;
 import com.example.olden.cryptoexchange.common.mvp.BasePresenter;
+import com.example.olden.cryptoexchange.presentation.currencies_list.di.CurrenciesListScope;
 import com.example.olden.cryptoexchange.presentation.currencies_list.view.ICurrenciesView;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+@CurrenciesListScope
 public class CurrenciesPresenter extends BasePresenter<ICurrenciesView> implements ICurrenciesPresenter<ICurrenciesView> {
 
     private ICurrenciesInteractor interactor;
 
+    @Inject
     public CurrenciesPresenter(ICurrenciesInteractor iCurrenciesInteractor) {
         this.interactor = iCurrenciesInteractor;
+    }
+
+    @Override
+    public void bindView(ICurrenciesView view) {
+        super.bindView(view);
+        List<String> currencies = interactor.getSelectedCurrenciesList();
+        getViewOrThrow().showSavedCurrenciesList(currencies);
     }
 
     @Override
@@ -42,6 +54,8 @@ public class CurrenciesPresenter extends BasePresenter<ICurrenciesView> implemen
         getViewOrThrow().hideKeyboard();
         getViewOrThrow().showNewCurrencyItem(name);
         getViewOrThrow().removeCurrencyFromSearch(name);
+
+        saveNewlySelectedCurrency(name);
     }
 
     private void loadCurrenciesListFromData(boolean forceRefresh) {
@@ -74,5 +88,9 @@ public class CurrenciesPresenter extends BasePresenter<ICurrenciesView> implemen
     private void handleErrorLoadCurrenciesList(Throwable throwable) {
         getViewOrThrow().hideLoading();
         getViewOrThrow().showErrorLoading();
+    }
+
+    private void saveNewlySelectedCurrency(String name) {
+        interactor.saveSelectedCurrency(name);
     }
 }
