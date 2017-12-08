@@ -1,7 +1,7 @@
-package com.example.olden.cryptoexchange.data.repositories;
+package com.example.olden.cryptoexchange.data.repository;
 
-import com.example.olden.cryptoexchange.data.network.models.response.CoinsData;
-import com.example.olden.cryptoexchange.data.network.models.response.PricesData;
+import com.example.olden.cryptoexchange.data.entity.CoinsData;
+import com.example.olden.cryptoexchange.data.entity.PricesData;
 
 import java.util.List;
 import java.util.Set;

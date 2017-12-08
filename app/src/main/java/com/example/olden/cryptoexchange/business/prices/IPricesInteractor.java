@@ -1,7 +1,7 @@
 package com.example.olden.cryptoexchange.business.prices;
 
 
-import com.example.olden.cryptoexchange.data.network.models.response.PricesData;
+import com.example.olden.cryptoexchange.data.entity.PricesData;
 
 import java.util.List;
 

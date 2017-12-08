@@ -1,8 +1,8 @@
 package com.example.olden.cryptoexchange.business.prices;
 
 
-import com.example.olden.cryptoexchange.data.network.models.response.PricesData;
-import com.example.olden.cryptoexchange.data.repositories.ICurrenciesRepository;
+import com.example.olden.cryptoexchange.data.entity.PricesData;
+import com.example.olden.cryptoexchange.data.repository.ICurrenciesRepository;
 import com.example.olden.cryptoexchange.di.scope.PricesScope;
 
 import java.util.List;

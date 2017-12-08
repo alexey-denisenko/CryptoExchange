@@ -1,9 +1,9 @@
-package com.example.olden.cryptoexchange.data.network.api;
+package com.example.olden.cryptoexchange.data.network;
 
 import android.support.annotation.NonNull;
 
-import com.example.olden.cryptoexchange.data.network.models.response.CoinsData;
-import com.example.olden.cryptoexchange.data.network.models.response.PricesData;
+import com.example.olden.cryptoexchange.data.entity.CoinsData;
+import com.example.olden.cryptoexchange.data.entity.PricesData;
 
 import java.util.List;
 

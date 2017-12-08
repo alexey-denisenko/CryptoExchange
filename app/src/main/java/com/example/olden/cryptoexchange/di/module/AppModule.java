@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.example.olden.cryptoexchange.data.network.api.CryptoCompareApi;
-import com.example.olden.cryptoexchange.data.repositories.CurrenciesRepository;
-import com.example.olden.cryptoexchange.data.repositories.ICurrenciesRepository;
-import com.example.olden.cryptoexchange.data.repositories.cache.CurrenciesCache;
-import com.example.olden.cryptoexchange.data.repositories.cache.PricesCache;
+import com.example.olden.cryptoexchange.data.network.CryptoCompareApi;
+import com.example.olden.cryptoexchange.data.repository.CurrenciesRepository;
+import com.example.olden.cryptoexchange.data.repository.ICurrenciesRepository;
+import com.example.olden.cryptoexchange.data.repository.cache.CurrenciesCache;
+import com.example.olden.cryptoexchange.data.repository.cache.PricesCache;
 import com.example.olden.cryptoexchange.other.keys.SharedPreferenceKey;
 import com.example.olden.cryptoexchange.other.preferences.StringSetPreferenceType;
 import com.example.olden.cryptoexchange.other.preferences.StringSetSetPreference;

@@ -1,4 +1,4 @@
-package com.example.olden.cryptoexchange.data.network.models.response;
+package com.example.olden.cryptoexchange.data.entity;
 
 
 import android.support.annotation.NonNull;
@@ -19,7 +19,7 @@ public abstract class CoinsData {
 
     @NonNull
     public static CoinsData.Builder builder() {
-        return new AutoValue_CoinsData.Builder();
+        return new $AutoValue_CoinsData.Builder();
     }
 
     @NonNull

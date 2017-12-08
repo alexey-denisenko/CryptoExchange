@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.example.olden.cryptoexchange.CryptoExchangeApplication;
 import com.example.olden.cryptoexchange.R;
-import com.example.olden.cryptoexchange.data.network.models.response.Price;
+import com.example.olden.cryptoexchange.data.entity.Price;
 import com.example.olden.cryptoexchange.other.keys.IntentKey;
 import com.example.olden.cryptoexchange.di.module.PricesModule;
 import com.example.olden.cryptoexchange.presentation.prices.presenter.IPricesPresenter;

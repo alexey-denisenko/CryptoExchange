@@ -1,4 +1,4 @@
-package com.example.olden.cryptoexchange.data.network.models.response;
+package com.example.olden.cryptoexchange.data.entity;
 
 import android.support.annotation.NonNull;
 
@@ -19,7 +19,7 @@ public abstract class Price {
     public abstract String price();
 
     @NonNull
-    public static Price.Builder builder() {return new AutoValue_Price.Builder();}
+    public static Price.Builder builder() {return new $AutoValue_Price.Builder();}
 
     @NonNull
     public static TypeAdapter<Price> typeAdapter(Gson gson) {

@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.olden.cryptoexchange.R;
-import com.example.olden.cryptoexchange.data.network.models.response.Price;
+import com.example.olden.cryptoexchange.data.entity.Price;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,7 +2,7 @@ package com.example.olden.cryptoexchange.di.module;
 
 import android.support.annotation.NonNull;
 
-import com.example.olden.cryptoexchange.data.network.api.CryptoCompareApi;
+import com.example.olden.cryptoexchange.data.network.CryptoCompareApi;
 import com.example.olden.cryptoexchange.other.ResponseTypeAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -20,7 +20,6 @@ public class StringSetSetPreference implements StringSetPreferenceType {
         this(sharedPreferences, key, null);
     }
 
-    @Inject
     public StringSetSetPreference(final @NonNull SharedPreferences sharedPreferences, final @NonNull String key,
                                   final @Nullable Set<String> defaultValue) {
         this.sharedPreferences = sharedPreferences;

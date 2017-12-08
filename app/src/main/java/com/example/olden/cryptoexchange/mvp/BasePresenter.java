@@ -1,4 +1,4 @@
-package com.example.olden.cryptoexchange.common.mvp;
+package com.example.olden.cryptoexchange.mvp;
 
 import android.support.annotation.Nullable;
 

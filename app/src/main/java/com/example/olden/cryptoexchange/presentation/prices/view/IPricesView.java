@@ -1,7 +1,7 @@
 package com.example.olden.cryptoexchange.presentation.prices.view;
 
-import com.example.olden.cryptoexchange.common.mvp.ICommonView;
-import com.example.olden.cryptoexchange.data.network.models.response.Price;
+import com.example.olden.cryptoexchange.mvp.ICommonView;
+import com.example.olden.cryptoexchange.data.entity.Price;
 
 import java.util.List;
 

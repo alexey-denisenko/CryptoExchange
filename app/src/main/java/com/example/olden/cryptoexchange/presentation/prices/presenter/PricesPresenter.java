@@ -2,8 +2,8 @@ package com.example.olden.cryptoexchange.presentation.prices.presenter;
 
 
 import com.example.olden.cryptoexchange.business.prices.IPricesInteractor;
-import com.example.olden.cryptoexchange.common.mvp.BasePresenter;
-import com.example.olden.cryptoexchange.data.network.models.response.Price;
+import com.example.olden.cryptoexchange.mvp.BasePresenter;
+import com.example.olden.cryptoexchange.data.entity.Price;
 import com.example.olden.cryptoexchange.di.scope.PricesScope;
 import com.example.olden.cryptoexchange.presentation.prices.view.IPricesView;
 

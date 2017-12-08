@@ -1,4 +1,4 @@
-package com.example.olden.cryptoexchange.data.network.models.response;
+package com.example.olden.cryptoexchange.data.entity;
 
 
 import android.support.annotation.NonNull;

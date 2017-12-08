@@ -1,7 +1,7 @@
-package com.example.olden.cryptoexchange.data.repositories.cache;
+package com.example.olden.cryptoexchange.data.repository.cache;
 
 import com.example.olden.cryptoexchange.business.prices.IPricesInteractor;
-import com.example.olden.cryptoexchange.data.network.models.response.PricesData;
+import com.example.olden.cryptoexchange.data.entity.PricesData;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

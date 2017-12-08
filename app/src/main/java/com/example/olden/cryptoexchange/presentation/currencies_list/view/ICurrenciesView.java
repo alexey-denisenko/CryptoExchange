@@ -1,6 +1,6 @@
 package com.example.olden.cryptoexchange.presentation.currencies_list.view;
 
-import com.example.olden.cryptoexchange.common.mvp.ICommonView;
+import com.example.olden.cryptoexchange.mvp.ICommonView;
 
 import java.util.List;
 

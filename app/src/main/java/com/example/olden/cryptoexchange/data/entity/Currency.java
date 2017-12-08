@@ -1,4 +1,4 @@
-package com.example.olden.cryptoexchange.data.network.models.response;
+package com.example.olden.cryptoexchange.data.entity;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,7 +24,7 @@ public abstract class Currency {
 
     @NonNull
     public static Builder builder() {
-        return new AutoValue_Currency.Builder();
+        return new $AutoValue_Currency.Builder();
     }
 
     @NonNull

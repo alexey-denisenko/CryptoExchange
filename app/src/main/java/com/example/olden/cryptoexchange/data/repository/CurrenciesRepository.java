@@ -1,11 +1,11 @@
-package com.example.olden.cryptoexchange.data.repositories;
+package com.example.olden.cryptoexchange.data.repository;
 
 
-import com.example.olden.cryptoexchange.data.network.api.CryptoCompareApi;
-import com.example.olden.cryptoexchange.data.network.models.response.CoinsData;
-import com.example.olden.cryptoexchange.data.network.models.response.PricesData;
-import com.example.olden.cryptoexchange.data.repositories.cache.CurrenciesCache;
-import com.example.olden.cryptoexchange.data.repositories.cache.PricesCache;
+import com.example.olden.cryptoexchange.data.network.CryptoCompareApi;
+import com.example.olden.cryptoexchange.data.entity.CoinsData;
+import com.example.olden.cryptoexchange.data.entity.PricesData;
+import com.example.olden.cryptoexchange.data.repository.cache.CurrenciesCache;
+import com.example.olden.cryptoexchange.data.repository.cache.PricesCache;
 import com.example.olden.cryptoexchange.other.preferences.StringSetPreferenceType;
 
 import java.util.HashSet;
