@@ -3,6 +3,10 @@ package com.example.olden.cryptoexchange.data.repositories.cache;
 import com.example.olden.cryptoexchange.business.prices.IPricesInteractor;
 import com.example.olden.cryptoexchange.data.network.models.response.PricesData;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class PricesCache {
 
     private PricesData prices;
@@ -10,6 +14,9 @@ public class PricesCache {
     private long cachingTime;
 
     private final long expirationThresholdInMillis = Math.round(IPricesInteractor.UPDATE_PERIOD * 0.8);
+
+    @Inject
+    public PricesCache() {}
 
     public PricesData getPrices() {
         return prices;

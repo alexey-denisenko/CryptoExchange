@@ -4,15 +4,19 @@ package com.example.olden.cryptoexchange.presentation.prices.presenter;
 import com.example.olden.cryptoexchange.business.prices.IPricesInteractor;
 import com.example.olden.cryptoexchange.common.mvp.BasePresenter;
 import com.example.olden.cryptoexchange.data.network.models.response.Price;
+import com.example.olden.cryptoexchange.di.scope.PricesScope;
 import com.example.olden.cryptoexchange.presentation.prices.view.IPricesView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+@PricesScope
 public class PricesPresenter extends BasePresenter<IPricesView> implements IPricesPresenter<IPricesView> {
 
     private IPricesInteractor interactor;
@@ -22,6 +26,7 @@ public class PricesPresenter extends BasePresenter<IPricesView> implements IPric
         add("EUR");
     }};
 
+    @Inject
     public PricesPresenter(IPricesInteractor interactor) {
         this.interactor = interactor;
     }

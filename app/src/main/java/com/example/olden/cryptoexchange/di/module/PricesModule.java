@@ -17,13 +17,13 @@ public class PricesModule {
 
     @Provides
     @PricesScope
-    IPricesInteractor providePricesInteractor(ICurrenciesRepository repository) {
-        return new PricesInteractor(repository);
+    IPricesPresenter<IPricesView> providePricesPresenter(IPricesInteractor interactor) {
+        return new PricesPresenter(interactor);
     }
 
     @Provides
     @PricesScope
-    IPricesPresenter<IPricesView> providePricesPresenter(IPricesInteractor interactor) {
-        return new PricesPresenter(interactor);
+    IPricesInteractor providePricesInteractor(ICurrenciesRepository repository) {
+        return new PricesInteractor(repository);
     }
 }

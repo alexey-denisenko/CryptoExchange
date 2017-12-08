@@ -6,15 +6,21 @@ import android.support.annotation.Nullable;
 
 import java.util.Set;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class StringSetSetPreference implements StringSetPreferenceType {
     private final SharedPreferences sharedPreferences;
     private final String key;
     private final Set<String> defaultValue;
 
+    @Inject
     public StringSetSetPreference(final @NonNull SharedPreferences sharedPreferences, final @NonNull String key) {
         this(sharedPreferences, key, null);
     }
 
+    @Inject
     public StringSetSetPreference(final @NonNull SharedPreferences sharedPreferences, final @NonNull String key,
                                   final @Nullable Set<String> defaultValue) {
         this.sharedPreferences = sharedPreferences;
