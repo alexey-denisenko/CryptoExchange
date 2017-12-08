@@ -1,9 +1,9 @@
-package com.example.olden.cryptoexchange.presentation.currencies_list.di;
+package com.example.olden.cryptoexchange.di.module;
 
 import com.example.olden.cryptoexchange.business.currencies_list.CurrenciesInteractor;
 import com.example.olden.cryptoexchange.business.currencies_list.ICurrenciesInteractor;
-import com.example.olden.cryptoexchange.data.repositories.cache.CurrenciesCache;
 import com.example.olden.cryptoexchange.data.repositories.ICurrenciesRepository;
+import com.example.olden.cryptoexchange.di.scope.CurrenciesListScope;
 import com.example.olden.cryptoexchange.presentation.currencies_list.presenter.CurrenciesPresenter;
 import com.example.olden.cryptoexchange.presentation.currencies_list.presenter.ICurrenciesPresenter;
 import com.example.olden.cryptoexchange.presentation.currencies_list.view.ICurrenciesView;

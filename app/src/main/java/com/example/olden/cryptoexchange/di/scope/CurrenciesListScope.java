@@ -1,4 +1,4 @@
-package com.example.olden.cryptoexchange.presentation.prices.di;
+package com.example.olden.cryptoexchange.di.scope;
 
 
 import java.lang.annotation.Retention;
@@ -8,5 +8,5 @@ import javax.inject.Scope;
 
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PricesScope {
+public @interface CurrenciesListScope {
 }

@@ -14,11 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.olden.cryptoexchange.common.CryptoExchangeApplication;
+import com.example.olden.cryptoexchange.CryptoExchangeApplication;
 import com.example.olden.cryptoexchange.R;
 import com.example.olden.cryptoexchange.data.network.models.response.Price;
 import com.example.olden.cryptoexchange.other.keys.IntentKey;
-import com.example.olden.cryptoexchange.presentation.prices.di.PricesModule;
+import com.example.olden.cryptoexchange.di.module.PricesModule;
 import com.example.olden.cryptoexchange.presentation.prices.presenter.IPricesPresenter;
 
 import java.util.List;

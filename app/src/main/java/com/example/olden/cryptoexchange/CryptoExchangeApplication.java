@@ -1,14 +1,14 @@
-package com.example.olden.cryptoexchange.common;
+package com.example.olden.cryptoexchange;
 
 
 import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.example.olden.cryptoexchange.common.di.AppComponent;
-import com.example.olden.cryptoexchange.common.di.AppModule;
-import com.example.olden.cryptoexchange.common.di.DaggerAppComponent;
-import com.example.olden.cryptoexchange.data.network.api.ApiModule;
+import com.example.olden.cryptoexchange.di.component.AppComponent;
+import com.example.olden.cryptoexchange.di.component.DaggerAppComponent;
+import com.example.olden.cryptoexchange.di.module.AppModule;
+import com.example.olden.cryptoexchange.di.module.NetworkModule;
 
 public class CryptoExchangeApplication extends Application {
 
@@ -31,7 +31,7 @@ public class CryptoExchangeApplication extends Application {
     protected DaggerAppComponent.Builder prepareApplicationComponent() {
         return DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
-                .apiModule(new ApiModule(BASE_URL));
+                .networkModule(new NetworkModule(BASE_URL));
     }
 
     @NonNull

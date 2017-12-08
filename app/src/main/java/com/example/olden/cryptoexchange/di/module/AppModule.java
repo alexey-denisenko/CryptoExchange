@@ -1,22 +1,17 @@
-package com.example.olden.cryptoexchange.common.di;
+package com.example.olden.cryptoexchange.di.module;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 
-import com.example.olden.cryptoexchange.data.network.api.CryptoCompareService;
+import com.example.olden.cryptoexchange.data.network.api.CryptoCompareApi;
 import com.example.olden.cryptoexchange.data.repositories.CurrenciesRepository;
 import com.example.olden.cryptoexchange.data.repositories.ICurrenciesRepository;
 import com.example.olden.cryptoexchange.data.repositories.cache.CurrenciesCache;
 import com.example.olden.cryptoexchange.data.repositories.cache.PricesCache;
-import com.example.olden.cryptoexchange.other.ResponseTypeAdapterFactory;
 import com.example.olden.cryptoexchange.other.keys.SharedPreferenceKey;
 import com.example.olden.cryptoexchange.other.preferences.StringSetPreferenceType;
 import com.example.olden.cryptoexchange.other.preferences.StringSetSetPreference;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.TypeAdapterFactory;
 
 import javax.inject.Singleton;
 
@@ -33,24 +28,12 @@ public class AppModule {
         this.context = context;
     }
 
-    @Provides @NonNull @Singleton
-    public TypeAdapterFactory provideTypeAdapterFactory() {
-        return ResponseTypeAdapterFactory.create();
-    }
-
-    @Provides @NonNull @Singleton
-    public Gson provideGson(TypeAdapterFactory typeAdapterFactory) {
-        return new GsonBuilder().
-                registerTypeAdapterFactory(typeAdapterFactory)
-                .create();
-    }
-
     @Provides @Singleton
-    public ICurrenciesRepository provideCurrenciesRepossitory(CryptoCompareService cryptoCompareService,
+    public ICurrenciesRepository provideCurrenciesRepossitory(CryptoCompareApi cryptoCompareApi,
                                                               StringSetPreferenceType stringSetPreferenceType,
                                                               CurrenciesCache currenciesCache,
                                                               PricesCache pricesCache) {
-        return new CurrenciesRepository(cryptoCompareService, stringSetPreferenceType, currenciesCache, pricesCache);
+        return new CurrenciesRepository(cryptoCompareApi, stringSetPreferenceType, currenciesCache, pricesCache);
     }
 
     @Provides @Singleton

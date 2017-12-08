@@ -2,7 +2,7 @@ package com.example.olden.cryptoexchange.business.currencies_list;
 
 
 import com.example.olden.cryptoexchange.data.repositories.ICurrenciesRepository;
-import com.example.olden.cryptoexchange.presentation.currencies_list.di.CurrenciesListScope;
+import com.example.olden.cryptoexchange.di.scope.CurrenciesListScope;
 
 import java.util.ArrayList;
 import java.util.HashSet;

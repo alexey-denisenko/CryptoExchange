@@ -11,7 +11,7 @@ import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface CryptoCompareService {
+public interface CryptoCompareApi {
 
     @GET("coinlist/") @NonNull
     Single<CoinsData> getCoinsData();

@@ -20,10 +20,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
-import com.example.olden.cryptoexchange.common.CryptoExchangeApplication;
+import com.example.olden.cryptoexchange.CryptoExchangeApplication;
 import com.example.olden.cryptoexchange.R;
 import com.example.olden.cryptoexchange.other.keys.IntentKey;
-import com.example.olden.cryptoexchange.presentation.currencies_list.di.CurrenciesListModule;
+import com.example.olden.cryptoexchange.di.module.CurrenciesListModule;
 import com.example.olden.cryptoexchange.presentation.currencies_list.presenter.ICurrenciesPresenter;
 import com.example.olden.cryptoexchange.presentation.prices.view.PricesActivity;
 

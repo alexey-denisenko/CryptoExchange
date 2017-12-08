@@ -1,7 +1,7 @@
 package com.example.olden.cryptoexchange.data.repositories;
 
 
-import com.example.olden.cryptoexchange.data.network.api.CryptoCompareService;
+import com.example.olden.cryptoexchange.data.network.api.CryptoCompareApi;
 import com.example.olden.cryptoexchange.data.network.models.response.CoinsData;
 import com.example.olden.cryptoexchange.data.network.models.response.PricesData;
 import com.example.olden.cryptoexchange.data.repositories.cache.CurrenciesCache;
@@ -20,7 +20,7 @@ import io.reactivex.Single;
 @Singleton
 public class CurrenciesRepository implements ICurrenciesRepository {
 
-    private CryptoCompareService cryptoCompareService;
+    private CryptoCompareApi cryptoCompareApi;
 
     private StringSetPreferenceType stringSetPreferenceType;
 
@@ -28,9 +28,9 @@ public class CurrenciesRepository implements ICurrenciesRepository {
     private PricesCache pricesCache;
 
     @Inject
-    public CurrenciesRepository(CryptoCompareService cryptoCompareService, StringSetPreferenceType stringSetPreferenceType, CurrenciesCache currenciesCache, PricesCache pricesCache) {
+    public CurrenciesRepository(CryptoCompareApi cryptoCompareApi, StringSetPreferenceType stringSetPreferenceType, CurrenciesCache currenciesCache, PricesCache pricesCache) {
 
-        this.cryptoCompareService = cryptoCompareService;
+        this.cryptoCompareApi = cryptoCompareApi;
         this.stringSetPreferenceType = stringSetPreferenceType;
         this.currenciesCache = currenciesCache;
         this.pricesCache = pricesCache;
@@ -78,7 +78,7 @@ public class CurrenciesRepository implements ICurrenciesRepository {
 
     private Single<CoinsData> getCurrenciesFromRemoteSourceAndCache() {
 
-        return cryptoCompareService.getCoinsData()
+        return cryptoCompareApi.getCoinsData()
                 .doOnSuccess(coinsData -> {
                     currenciesCache.setCurrenciesList(coinsData);
                     currenciesCache.setCacheUpToDate(true);
@@ -87,7 +87,7 @@ public class CurrenciesRepository implements ICurrenciesRepository {
 
     private Single<PricesData> getPricesFromRemoteSourceAndCache(String from, List<String> to) {
 
-        return cryptoCompareService.getPrices(from, to)
+        return cryptoCompareApi.getPrices(from, to)
                 .doOnSuccess(pricesData -> {
                     pricesCache.setPrices(pricesData);
                 });
