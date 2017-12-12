@@ -3,7 +3,7 @@ package com.example.olden.cryptoexchange.di.module;
 
 import com.example.olden.cryptoexchange.business.prices.IPricesInteractor;
 import com.example.olden.cryptoexchange.business.prices.PricesInteractor;
-import com.example.olden.cryptoexchange.data.repository.ICurrenciesRepository;
+import com.example.olden.cryptoexchange.data.repository.coins.ICoinsRepository;
 import com.example.olden.cryptoexchange.di.scope.PricesScope;
 import com.example.olden.cryptoexchange.presentation.prices.presenter.IPricesPresenter;
 import com.example.olden.cryptoexchange.presentation.prices.presenter.PricesPresenter;
@@ -23,7 +23,7 @@ public class PricesModule {
 
     @Provides
     @PricesScope
-    IPricesInteractor providePricesInteractor(ICurrenciesRepository repository) {
+    IPricesInteractor providePricesInteractor(ICoinsRepository repository) {
         return new PricesInteractor(repository);
     }
 }

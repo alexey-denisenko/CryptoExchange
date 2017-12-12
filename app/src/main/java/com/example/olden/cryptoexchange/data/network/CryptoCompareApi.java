@@ -7,16 +7,16 @@ import com.example.olden.cryptoexchange.data.entity.PricesData;
 
 import java.util.List;
 
-import io.reactivex.Single;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface CryptoCompareApi {
 
     @GET("coinlist/") @NonNull
-    Single<CoinsData> getCoinsData();
+    Observable<CoinsData> getCoinsData();
 
     @GET("price/")
-    Single<PricesData> getPrices(@Query("fsym") String from, @Query("tsyms") List<String> to);
+    Observable<PricesData> getPrices(@Query("fsym") String from, @Query("tsyms") List<String> to);
 
 }

@@ -1,55 +1,62 @@
 package com.example.olden.cryptoexchange.business.currencies_list;
 
 
-import com.example.olden.cryptoexchange.data.repository.ICurrenciesRepository;
+import com.example.olden.cryptoexchange.data.repository.coins.ICoinsRepository;
+import com.example.olden.cryptoexchange.di.Qualifiers;
 import com.example.olden.cryptoexchange.di.scope.CurrenciesListScope;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
-import io.reactivex.Single;
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 
 @CurrenciesListScope
 public class CurrenciesInteractor implements ICurrenciesInteractor {
 
-    private ICurrenciesRepository iCurrenciesRepository;
+    private ICoinsRepository iCoinsRepository;
+    private Scheduler uiThread;
 
     @Inject
-    public CurrenciesInteractor(ICurrenciesRepository iCurrenciesRepository) {
-        this.iCurrenciesRepository = iCurrenciesRepository;
+    public CurrenciesInteractor(ICoinsRepository iCoinsRepository,
+                                @Named(Qualifiers.UI_THREAD) Scheduler uiThread) {
+
+        this.iCoinsRepository = iCoinsRepository;
+        this.uiThread = uiThread;
     }
 
     @Override
-    public Single<List<String>> getCurrencyNamesList(boolean forceRefresh) {
+    public Observable<List<String>> getCurrencyNamesList(boolean forceRefresh) {
 
-        if(forceRefresh) {
-            iCurrenciesRepository.refreshCurrencies();
+        Observable<List<String>> result;
+
+        if (forceRefresh) {
+            result = iCoinsRepository.refreshCoinsData();
+        } else {
+            result = iCoinsRepository.getCoinsData();
         }
 
-        return iCurrenciesRepository.getCoinsData()
-                .map(coinsData -> new ArrayList<>(coinsData.data().keySet()));
+        return result.observeOn(uiThread);
     }
 
-    @Override
-    public void saveSelectedCurrenciesList(List<String> currencies) {
-        Set<String> currenciesSet = new HashSet<>(currencies);
-        iCurrenciesRepository.saveSelectedCurrencies(currenciesSet);
-    }
-
-    @Override
-    public void saveSelectedCurrency(String name) {
-        Set<String> currenciesSet = iCurrenciesRepository.getSelectedCurrencies();
-        currenciesSet.add(name);
-        iCurrenciesRepository.saveSelectedCurrencies(currenciesSet);
-    }
-
-    @Override
-    public List<String> getSelectedCurrenciesList() {
-        Set<String> currenciesSet = iCurrenciesRepository.getSelectedCurrencies();
-        return new ArrayList<>(currenciesSet);
-    }
+//    @Override
+//    public void saveSelectedCurrenciesList(List<String> currencies) {
+//        Set<String> currenciesSet = new HashSet<>(currencies);
+//        iCoinsRepository.saveSelectedCurrencies(currenciesSet);
+//    }
+//
+//    @Override
+//    public void saveSelectedCurrency(String name) {
+//        Set<String> currenciesSet = iCoinsRepository.getSelectedCurrencies();
+//        currenciesSet.add(name);
+//        iCoinsRepository.saveSelectedCurrencies(currenciesSet);
+//    }
+//
+//    @Override
+//    public List<String> getSelectedCurrenciesList() {
+//        Set<String> currenciesSet = iCoinsRepository.getSelectedCurrencies();
+//        return new ArrayList<>(currenciesSet);
+//    }
 }

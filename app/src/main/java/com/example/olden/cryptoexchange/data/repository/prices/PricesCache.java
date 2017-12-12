@@ -1,4 +1,4 @@
-package com.example.olden.cryptoexchange.data.repository.cache;
+package com.example.olden.cryptoexchange.data.repository.prices;
 
 import com.example.olden.cryptoexchange.business.prices.IPricesInteractor;
 import com.example.olden.cryptoexchange.data.entity.PricesData;

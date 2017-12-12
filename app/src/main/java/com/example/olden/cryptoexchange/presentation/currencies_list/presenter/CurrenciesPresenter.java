@@ -2,17 +2,16 @@ package com.example.olden.cryptoexchange.presentation.currencies_list.presenter;
 
 
 import com.example.olden.cryptoexchange.business.currencies_list.ICurrenciesInteractor;
-import com.example.olden.cryptoexchange.mvp.BasePresenter;
 import com.example.olden.cryptoexchange.di.scope.CurrenciesListScope;
+import com.example.olden.cryptoexchange.mvp.BasePresenter;
 import com.example.olden.cryptoexchange.presentation.currencies_list.view.ICurrenciesView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 @CurrenciesListScope
 public class CurrenciesPresenter extends BasePresenter<ICurrenciesView> implements ICurrenciesPresenter<ICurrenciesView> {
@@ -27,7 +26,8 @@ public class CurrenciesPresenter extends BasePresenter<ICurrenciesView> implemen
     @Override
     public void bindView(ICurrenciesView view) {
         super.bindView(view);
-        List<String> currencies = interactor.getSelectedCurrenciesList();
+        List<String> currencies = new ArrayList<>();
+//        currencies = interactor.getSelectedCurrenciesList();
         getViewOrThrow().showSavedCurrenciesList(currencies);
     }
 
@@ -38,7 +38,7 @@ public class CurrenciesPresenter extends BasePresenter<ICurrenciesView> implemen
 
     @Override
     public void saveCurrencyNamesToStorage(List<String> names) {
-        interactor.saveSelectedCurrenciesList(names);
+//        interactor.saveSelectedCurrenciesList(names);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class CurrenciesPresenter extends BasePresenter<ICurrenciesView> implemen
         getViewOrThrow().showNewCurrencyItem(name);
         getViewOrThrow().removeCurrencyFromSearch(name);
 
-        saveNewlySelectedCurrency(name);
+//        saveNewlySelectedCurrency(name);
     }
 
     private void loadCurrenciesListFromData(boolean forceRefresh) {
@@ -63,10 +63,9 @@ public class CurrenciesPresenter extends BasePresenter<ICurrenciesView> implemen
         getViewOrThrow().disableAddButton();
 
         Disposable disposable = interactor.getCurrencyNamesList(forceRefresh)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleSuccessLoadCurrenciesList,
                         this::handleErrorLoadCurrenciesList);
+
         compositeDisposable.add(disposable);
     }
 
@@ -80,7 +79,8 @@ public class CurrenciesPresenter extends BasePresenter<ICurrenciesView> implemen
         getViewOrThrow().hideLoading();
         getViewOrThrow().enableAddButton();
 
-        List<String> currencies = interactor.getSelectedCurrenciesList();
+        List<String> currencies = new ArrayList<>();
+//        currencies = interactor.getSelectedCurrenciesList();
         strings.removeAll(currencies);
         getViewOrThrow().setAutoCompleteTextView(strings);
     }
@@ -90,7 +90,7 @@ public class CurrenciesPresenter extends BasePresenter<ICurrenciesView> implemen
         getViewOrThrow().showErrorLoading();
     }
 
-    private void saveNewlySelectedCurrency(String name) {
-        interactor.saveSelectedCurrency(name);
-    }
+//    private void saveNewlySelectedCurrency(String name) {
+//        interactor.saveSelectedCurrency(name);
+//    }
 }

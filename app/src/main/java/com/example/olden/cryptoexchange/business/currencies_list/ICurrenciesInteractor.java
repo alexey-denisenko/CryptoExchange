@@ -3,15 +3,15 @@ package com.example.olden.cryptoexchange.business.currencies_list;
 
 import java.util.List;
 
-import io.reactivex.Single;
+import io.reactivex.Observable;
 
 public interface ICurrenciesInteractor {
 
-    Single<List<String>> getCurrencyNamesList(boolean forceRefresh);
+    Observable<List<String>> getCurrencyNamesList(boolean forceRefresh);
 
-    void saveSelectedCurrenciesList(List<String> currencies);
-
-    void saveSelectedCurrency(String name);
-
-    List<String> getSelectedCurrenciesList();
+//    void saveSelectedCurrenciesList(List<String> currencies);
+//
+//    void saveSelectedCurrency(String name);
+//
+//    List<String> getSelectedCurrenciesList();
 }

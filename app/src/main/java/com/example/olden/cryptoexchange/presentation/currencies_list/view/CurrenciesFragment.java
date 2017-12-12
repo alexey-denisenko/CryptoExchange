@@ -22,8 +22,8 @@ import android.widget.AutoCompleteTextView;
 
 import com.example.olden.cryptoexchange.CryptoExchangeApplication;
 import com.example.olden.cryptoexchange.R;
+import com.example.olden.cryptoexchange.di.module.CoinsModule;
 import com.example.olden.cryptoexchange.other.keys.IntentKey;
-import com.example.olden.cryptoexchange.di.module.CurrenciesListModule;
 import com.example.olden.cryptoexchange.presentation.currencies_list.presenter.ICurrenciesPresenter;
 import com.example.olden.cryptoexchange.presentation.prices.view.PricesActivity;
 
@@ -61,7 +61,7 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CryptoExchangeApplication.appComponent(getActivity()).appComponent().plus(new CurrenciesListModule()).inject(this);
+        CryptoExchangeApplication.appComponent(getActivity()).appComponent().plus(new CoinsModule()).inject(this);
     }
 
     @Nullable
