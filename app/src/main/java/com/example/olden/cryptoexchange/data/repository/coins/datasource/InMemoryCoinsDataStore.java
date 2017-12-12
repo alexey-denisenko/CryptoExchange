@@ -1,7 +1,9 @@
-package com.example.olden.cryptoexchange.data.repository.coins.datasource.data;
+package com.example.olden.cryptoexchange.data.repository.coins.datasource;
+
 
 import com.example.olden.cryptoexchange.data.entity.CoinsData;
-import com.example.olden.cryptoexchange.data.repository.coins.CoinsDataCache;
+import com.example.olden.cryptoexchange.data.repository.cache.CoinsDataCache;
+import com.example.olden.cryptoexchange.data.repository.datasource.CoinsDataStore;
 
 import io.reactivex.Observable;
 

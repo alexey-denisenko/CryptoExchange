@@ -18,7 +18,7 @@ public class PricesActivity extends AppCompatActivity {
         if (extras != null) {
             currencyName = extras.getString(IntentKey.CURRENCY_NAME);
         } else {
-            throw new RuntimeException("Currency name must be provided to show prices");
+            throw new RuntimeException("Coin name must be provided to show prices");
         }
 
         if(savedInstanceState == null) {

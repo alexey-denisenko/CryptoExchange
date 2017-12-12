@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.olden.cryptoexchange.presentation.currencies_list.view.CurrenciesActivity">
+    tools:context="com.example.olden.cryptoexchange.presentation.coins.view.CoinsActivity">
 
     <fragment
         android:id="@+id/currencies_list_fragment"
-        android:name="com.example.olden.cryptoexchange.presentation.currencies_list.view.CurrenciesFragment"
+        android:name="com.example.olden.cryptoexchange.presentation.coins.view.CoinsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

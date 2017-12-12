@@ -5,11 +5,11 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.example.olden.cryptoexchange.data.mapper.CoinsDataMapper;
-import com.example.olden.cryptoexchange.data.repository.coins.CoinsRepository;
-import com.example.olden.cryptoexchange.data.repository.coins.ICoinsRepository;
-import com.example.olden.cryptoexchange.data.repository.coins.CoinsDataCache;
-import com.example.olden.cryptoexchange.data.repository.prices.PricesCache;
-import com.example.olden.cryptoexchange.data.repository.coins.datasource.data.CoinsDataStoreFactory;
+import com.example.olden.cryptoexchange.data.repository.CoinsRepository;
+import com.example.olden.cryptoexchange.data.repository.ICoinsRepository;
+import com.example.olden.cryptoexchange.data.repository.cache.CoinsDataCache;
+import com.example.olden.cryptoexchange.data.repository.cache.PricesCache;
+import com.example.olden.cryptoexchange.data.repository.coins.datasource.CoinsDataStoreFactory;
 import com.example.olden.cryptoexchange.other.keys.SharedPreferenceKey;
 import com.example.olden.cryptoexchange.other.preferences.StringSetPreferenceType;
 import com.example.olden.cryptoexchange.other.preferences.StringSetSetPreference;
@@ -30,11 +30,11 @@ public class AppModule {
     }
 
     @Provides @Singleton
-    public ICoinsRepository provideCurrenciesRepossitory(StringSetPreferenceType stringSetPreferenceType,
-                                                         CoinsDataStoreFactory coinsDataStoreFactory,
+    public ICoinsRepository provideCurrenciesRepossitory(CoinsDataStoreFactory coinsDataStoreFactory,
+                                                         StringSetPreferenceType stringSetPreferenceType,
                                                          CoinsDataMapper coinsDataMapper) {
 
-        return new CoinsRepository(stringSetPreferenceType, coinsDataStoreFactory, coinsDataMapper);
+        return new CoinsRepository(coinsDataStoreFactory, stringSetPreferenceType, coinsDataMapper);
     }
 
     @Provides @Singleton

@@ -8,5 +8,5 @@ import javax.inject.Scope;
 
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CurrenciesListScope {
+public @interface CoinsListScope {
 }

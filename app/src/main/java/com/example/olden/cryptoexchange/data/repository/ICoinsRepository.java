@@ -1,4 +1,4 @@
-package com.example.olden.cryptoexchange.data.repository.coins;
+package com.example.olden.cryptoexchange.data.repository;
 
 import java.util.List;
 import java.util.Set;
@@ -13,5 +13,7 @@ public interface ICoinsRepository {
 
     Observable<Set<String>> getSelectedCoins();
 
-    void saveSelectedCoins(Set<String> currencies);
+    void saveSelectedCoins(Set<String> coins);
+
+    void saveSelectedCoins(String coin);
 }

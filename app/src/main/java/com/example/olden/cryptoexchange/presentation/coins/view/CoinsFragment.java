@@ -1,4 +1,4 @@
-package com.example.olden.cryptoexchange.presentation.currencies_list.view;
+package com.example.olden.cryptoexchange.presentation.coins.view;
 
 
 import android.content.Context;
@@ -22,9 +22,9 @@ import android.widget.AutoCompleteTextView;
 
 import com.example.olden.cryptoexchange.CryptoExchangeApplication;
 import com.example.olden.cryptoexchange.R;
-import com.example.olden.cryptoexchange.di.module.CoinsModule;
+import com.example.olden.cryptoexchange.di.module.CoinsListModule;
 import com.example.olden.cryptoexchange.other.keys.IntentKey;
-import com.example.olden.cryptoexchange.presentation.currencies_list.presenter.ICurrenciesPresenter;
+import com.example.olden.cryptoexchange.presentation.coins.presenter.ICoinsPresenter;
 import com.example.olden.cryptoexchange.presentation.prices.view.PricesActivity;
 
 import java.util.List;
@@ -35,13 +35,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CurrenciesFragment extends Fragment implements ICurrenciesView,
-        AdapterView.OnItemClickListener, CurrenciesListViewHolder.OnCurrencySelectedListener {
+public class CoinsFragment extends Fragment implements ICoinsView,
+        AdapterView.OnItemClickListener, CoinsListViewHolder.OnCurrencySelectedListener {
 
-    @BindView(R.id.currencies_search_tv)
+    @BindView(R.id.coins_search_tv)
     AutoCompleteTextView searchTextView;
 
-    @BindView(R.id.currencies_list)
+    @BindView(R.id.coins_list)
     RecyclerView recyclerView;
 
     @BindView(R.id.add_button)
@@ -51,9 +51,9 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
     SwipeRefreshLayout refreshLayout;
 
     @Inject
-    ICurrenciesPresenter<ICurrenciesView> presenter;
+    ICoinsPresenter<ICoinsView> presenter;
 
-    private CurrenciesListAdapter currenciesListAdapter;
+    private CoinsListAdapter coinsListAdapter;
     private ArrayAdapter<String> searchViewAdapter;
     private Snackbar snackbar;
     private InputMethodManager inputMethodManager;
@@ -61,14 +61,14 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CryptoExchangeApplication.appComponent(getActivity()).appComponent().plus(new CoinsModule()).inject(this);
+        CryptoExchangeApplication.appComponent(getActivity()).appComponent().plus(new CoinsListModule()).inject(this);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_currencies, container, false);
+        View view = inflater.inflate(R.layout.fragment_coins_list, container, false);
         ButterKnife.bind(this, view);
 
         searchTextView.setOnItemClickListener(this);
@@ -77,7 +77,7 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
         initRecyclerView();
 
         inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        snackbar = Snackbar.make(view, "Error loading currencies list", Snackbar.LENGTH_INDEFINITE)
+        snackbar = Snackbar.make(view, "Error loading coins list", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Retry", clickView -> {
                     presenter.fillAutoCompleteList(true);
                 });
@@ -94,19 +94,19 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
     }
 
     @Override
-    public void setAutoCompleteTextView(List<String> currencies) {
+    public void setAutoCompleteTextView(List<String> coins) {
 
         searchViewAdapter = new ArrayAdapter<>(
                 getActivity(),
                 android.R.layout.simple_dropdown_item_1line,
-                currencies
+                coins
         );
         searchTextView.setAdapter(searchViewAdapter);
     }
 
     @Override
-    public void showSavedCurrenciesList(List<String> currencies) {
-        currenciesListAdapter.addCurrencyList(currencies);
+    public void showSelectedCoins(List<String> coins) {
+        coinsListAdapter.addSeveralCoins(coins);
     }
 
     @Override
@@ -163,39 +163,39 @@ public class CurrenciesFragment extends Fragment implements ICurrenciesView,
     }
 
     @Override
-    public void showNewCurrencyItem(String name) {
-        currenciesListAdapter.addCurrency(name);
+    public void showSelectedCoin(String name) {
+        coinsListAdapter.addCoin(name);
     }
 
     @Override
-    public void removeCurrencyFromSearch(String name) {
+    public void removeCoinFromSearch(String name) {
         searchViewAdapter.remove(name);
         searchViewAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String currencyName = (String) parent.getItemAtPosition(position);
-        presenter.addCurrencyItem(currencyName);
+        String coinName = (String) parent.getItemAtPosition(position);
+        presenter.addSelectedCoin(coinName);
     }
 
     @Override
     public void onCurrencySelected(int position) {
-        String currencyName = currenciesListAdapter.getCurrencies().get(position);
+        String coinName = coinsListAdapter.getCoins().get(position);
         Intent intent = new Intent(getActivity(), PricesActivity.class);
-        intent.putExtra(IntentKey.CURRENCY_NAME, currencyName);
+        intent.putExtra(IntentKey.CURRENCY_NAME, coinName);
         startActivity(intent);
     }
 
     @OnClick(R.id.add_button)
     public void onAddButtonClick() {
-        presenter.showAddCurrencies();
+        presenter.showCoinsSearch();
     }
 
     private void initRecyclerView() {
-        currenciesListAdapter = new CurrenciesListAdapter(this);
+        coinsListAdapter = new CoinsListAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(currenciesListAdapter);
+        recyclerView.setAdapter(coinsListAdapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
     }
 }

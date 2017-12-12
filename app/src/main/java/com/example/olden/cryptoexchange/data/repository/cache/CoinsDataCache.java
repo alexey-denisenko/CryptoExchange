@@ -1,4 +1,4 @@
-package com.example.olden.cryptoexchange.data.repository.coins;
+package com.example.olden.cryptoexchange.data.repository.cache;
 
 
 import com.example.olden.cryptoexchange.data.entity.CoinsData;

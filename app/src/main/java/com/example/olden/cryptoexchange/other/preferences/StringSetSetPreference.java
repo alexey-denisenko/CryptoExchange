@@ -43,6 +43,15 @@ public class StringSetSetPreference implements StringSetPreferenceType {
     }
 
     @Override
+    public void add(String value) {
+
+        Set<String> savedValues = this.get();
+        savedValues.add(value);
+
+        this.set(savedValues);
+    }
+
+    @Override
     public void delete() {
         this.sharedPreferences.edit().remove(this.key).apply();
     }

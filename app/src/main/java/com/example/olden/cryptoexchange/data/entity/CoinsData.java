@@ -15,7 +15,7 @@ public abstract class CoinsData {
 
     @NonNull
     @SerializedName("Data")
-    public abstract HashMap<String, Currency> data();
+    public abstract HashMap<String, Coin> data();
 
     @NonNull
     public static CoinsData.Builder builder() {
@@ -31,7 +31,7 @@ public abstract class CoinsData {
     public static abstract class Builder {
 
         @NonNull
-        public abstract CoinsData.Builder data(@NonNull HashMap<String, Currency> data);
+        public abstract CoinsData.Builder data(@NonNull HashMap<String, Coin> data);
 
         @NonNull
         public abstract CoinsData build();

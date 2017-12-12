@@ -2,7 +2,7 @@ package com.example.olden.cryptoexchange.business.prices;
 
 
 import com.example.olden.cryptoexchange.data.entity.PricesData;
-import com.example.olden.cryptoexchange.data.repository.coins.ICoinsRepository;
+import com.example.olden.cryptoexchange.data.repository.ICoinsRepository;
 import com.example.olden.cryptoexchange.di.scope.PricesScope;
 
 import java.util.List;

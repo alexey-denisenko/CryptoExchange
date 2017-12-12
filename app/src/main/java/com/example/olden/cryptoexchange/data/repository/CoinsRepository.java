@@ -1,9 +1,10 @@
-package com.example.olden.cryptoexchange.data.repository.coins;
+package com.example.olden.cryptoexchange.data.repository;
 
 
 import com.example.olden.cryptoexchange.data.mapper.CoinsDataMapper;
-import com.example.olden.cryptoexchange.data.repository.coins.datasource.data.CoinsDataStore;
-import com.example.olden.cryptoexchange.data.repository.coins.datasource.data.CoinsDataStoreFactory;
+import com.example.olden.cryptoexchange.data.repository.coins.datasource.CoinsDataStoreFactory;
+import com.example.olden.cryptoexchange.data.repository.datasource.CoinsDataStore;
+import com.example.olden.cryptoexchange.other.preferences.StringSetPreferenceType;
 
 import java.util.List;
 import java.util.Set;
@@ -16,16 +17,16 @@ import io.reactivex.Observable;
 @Singleton
 public class CoinsRepository implements ICoinsRepository {
 
-    private CoinsDataMapper coinsDataMapper;
-
     private CoinsDataStoreFactory coinsDataStoreFactory;
-
+    private StringSetPreferenceType stringSetPrefs;
+    private CoinsDataMapper coinsDataMapper;
 
     @Inject
     public CoinsRepository(CoinsDataStoreFactory coinsDataStoreFactory,
-                           CoinsDataMapper coinsDataMapper) {
+                           StringSetPreferenceType stringSetPrefs, CoinsDataMapper coinsDataMapper) {
 
         this.coinsDataStoreFactory = coinsDataStoreFactory;
+        this.stringSetPrefs = stringSetPrefs;
         this.coinsDataMapper = coinsDataMapper;
     }
 
@@ -47,13 +48,16 @@ public class CoinsRepository implements ICoinsRepository {
 
     @Override
     public Observable<Set<String>> getSelectedCoins() {
-        return null;
+        return Observable.just(stringSetPrefs.get());
     }
 
     @Override
-    public void saveSelectedCoins(Set<String> currencies) {
-
+    public void saveSelectedCoins(Set<String> coins) {
+        stringSetPrefs.set(coins);
     }
 
-
+    @Override
+    public void saveSelectedCoins(String coin) {
+        stringSetPrefs.add(coin);
+    }
 }

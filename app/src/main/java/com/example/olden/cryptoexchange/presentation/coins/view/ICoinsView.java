@@ -1,14 +1,14 @@
-package com.example.olden.cryptoexchange.presentation.currencies_list.view;
+package com.example.olden.cryptoexchange.presentation.coins.view;
 
 import com.example.olden.cryptoexchange.mvp.ICommonView;
 
 import java.util.List;
 
-public interface ICurrenciesView extends ICommonView {
+public interface ICoinsView extends ICommonView {
 
-    void setAutoCompleteTextView(List<String> currencies);
+    void setAutoCompleteTextView(List<String> coins);
 
-    void showSavedCurrenciesList(List<String> currencies);
+    void showSelectedCoins(List<String> coins);
 
     void showSearchView();
 
@@ -30,7 +30,7 @@ public interface ICurrenciesView extends ICommonView {
 
     void showErrorLoading();
 
-    void showNewCurrencyItem(String name);
+    void showSelectedCoin(String name);
 
-    void removeCurrencyFromSearch(String name);
+    void removeCoinFromSearch(String name);
 }

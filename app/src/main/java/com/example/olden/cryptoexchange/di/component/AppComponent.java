@@ -3,8 +3,8 @@ package com.example.olden.cryptoexchange.di.component;
 
 import com.example.olden.cryptoexchange.OkHttpInterceptorsModule;
 import com.example.olden.cryptoexchange.di.module.AppModule;
+import com.example.olden.cryptoexchange.di.module.CoinsListModule;
 import com.example.olden.cryptoexchange.di.module.NetworkModule;
-import com.example.olden.cryptoexchange.di.module.CoinsModule;
 import com.example.olden.cryptoexchange.di.module.PricesModule;
 
 import javax.inject.Singleton;
@@ -19,7 +19,7 @@ import dagger.Component;
 })
 public interface AppComponent {
 
-    CurrenciesListComponent plus(CoinsModule module);
+    CoinsListComponent plus(CoinsListModule module);
 
     PricesComponent plus(PricesModule module);
 }

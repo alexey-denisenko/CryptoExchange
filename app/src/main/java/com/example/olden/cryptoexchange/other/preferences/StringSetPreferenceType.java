@@ -10,5 +10,7 @@ public interface StringSetPreferenceType {
 
     void set(Set<String> value);
 
+    void add(String value);
+
     void delete();
 }

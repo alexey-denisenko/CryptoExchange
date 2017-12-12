@@ -9,7 +9,7 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.SerializedName;
 
 @AutoValue
-public abstract class Currency {
+public abstract class Coin {
 
     @SerializedName("Id")
     public abstract int id();
@@ -24,12 +24,12 @@ public abstract class Currency {
 
     @NonNull
     public static Builder builder() {
-        return new $AutoValue_Currency.Builder();
+        return new $AutoValue_Coin.Builder();
     }
 
     @NonNull
-    public static TypeAdapter<Currency> typeAdapter(Gson gson) {
-        return new AutoValue_Currency.GsonTypeAdapter(gson);
+    public static TypeAdapter<Coin> typeAdapter(Gson gson) {
+        return new AutoValue_Coin.GsonTypeAdapter(gson);
     }
 
     @AutoValue.Builder
@@ -45,6 +45,6 @@ public abstract class Currency {
         public abstract Builder name(@NonNull String name);
 
         @NonNull
-        public abstract Currency build();
+        public abstract Coin build();
     }
 }
