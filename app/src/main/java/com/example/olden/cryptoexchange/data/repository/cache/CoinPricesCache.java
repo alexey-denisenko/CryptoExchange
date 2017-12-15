@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class PricesCache {
+public class CoinPricesCache {
 
     private PricesData prices;
 
@@ -16,7 +16,7 @@ public class PricesCache {
     private final long expirationThresholdInMillis = Math.round(IPricesInteractor.UPDATE_PERIOD * 0.8);
 
     @Inject
-    public PricesCache() {}
+    public CoinPricesCache() {}
 
     public PricesData getPrices() {
         return prices;

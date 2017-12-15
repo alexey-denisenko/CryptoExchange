@@ -7,9 +7,9 @@ import android.preference.PreferenceManager;
 import com.example.olden.cryptoexchange.data.mapper.CoinsDataMapper;
 import com.example.olden.cryptoexchange.data.repository.CoinsRepository;
 import com.example.olden.cryptoexchange.data.repository.ICoinsRepository;
+import com.example.olden.cryptoexchange.data.repository.cache.CoinPricesCache;
 import com.example.olden.cryptoexchange.data.repository.cache.CoinsDataCache;
-import com.example.olden.cryptoexchange.data.repository.cache.PricesCache;
-import com.example.olden.cryptoexchange.data.repository.coins.datasource.CoinsDataStoreFactory;
+import com.example.olden.cryptoexchange.data.repository.datasource.CoinsDataStoreFactory;
 import com.example.olden.cryptoexchange.other.keys.SharedPreferenceKey;
 import com.example.olden.cryptoexchange.other.preferences.StringSetPreferenceType;
 import com.example.olden.cryptoexchange.other.preferences.StringSetSetPreference;
@@ -53,7 +53,7 @@ public class AppModule {
     }
 
     @Provides @Singleton
-    public PricesCache providePricesCache() {
-        return new PricesCache();
+    public CoinPricesCache providePricesCache() {
+        return new CoinPricesCache();
     }
 }

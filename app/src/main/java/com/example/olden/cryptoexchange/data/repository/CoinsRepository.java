@@ -2,8 +2,8 @@ package com.example.olden.cryptoexchange.data.repository;
 
 
 import com.example.olden.cryptoexchange.data.mapper.CoinsDataMapper;
-import com.example.olden.cryptoexchange.data.repository.coins.datasource.CoinsDataStoreFactory;
 import com.example.olden.cryptoexchange.data.repository.datasource.CoinsDataStore;
+import com.example.olden.cryptoexchange.data.repository.datasource.CoinsDataStoreFactory;
 import com.example.olden.cryptoexchange.other.preferences.StringSetPreferenceType;
 
 import java.util.List;
@@ -23,7 +23,8 @@ public class CoinsRepository implements ICoinsRepository {
 
     @Inject
     public CoinsRepository(CoinsDataStoreFactory coinsDataStoreFactory,
-                           StringSetPreferenceType stringSetPrefs, CoinsDataMapper coinsDataMapper) {
+                           StringSetPreferenceType stringSetPrefs,
+                           CoinsDataMapper coinsDataMapper) {
 
         this.coinsDataStoreFactory = coinsDataStoreFactory;
         this.stringSetPrefs = stringSetPrefs;

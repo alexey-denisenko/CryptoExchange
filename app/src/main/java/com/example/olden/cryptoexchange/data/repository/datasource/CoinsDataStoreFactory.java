@@ -1,9 +1,8 @@
-package com.example.olden.cryptoexchange.data.repository.coins.datasource;
+package com.example.olden.cryptoexchange.data.repository.datasource;
 
 
 import com.example.olden.cryptoexchange.data.network.CryptoCompareApi;
 import com.example.olden.cryptoexchange.data.repository.cache.CoinsDataCache;
-import com.example.olden.cryptoexchange.data.repository.datasource.CoinsDataStore;
 import com.example.olden.cryptoexchange.di.Qualifiers;
 
 import javax.inject.Inject;
