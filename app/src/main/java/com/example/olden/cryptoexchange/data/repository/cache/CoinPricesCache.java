@@ -1,41 +1,55 @@
 package com.example.olden.cryptoexchange.data.repository.cache;
 
-import com.example.olden.cryptoexchange.business.prices.IPricesInteractor;
-import com.example.olden.cryptoexchange.data.entity.PricesData;
+import com.example.olden.cryptoexchange.data.entity.Price;
 
-import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Singleton;
 
 @Singleton
 public class CoinPricesCache {
 
-    private PricesData prices;
+   private Map<String, List<Price>> pricesCache = new HashMap<>();
+    private boolean isCacheUpToDate = false;
 
-    private long cachingTime;
-
-    private final long expirationThresholdInMillis = Math.round(IPricesInteractor.UPDATE_PERIOD * 0.8);
-
-    @Inject
-    public CoinPricesCache() {}
-
-    public PricesData getPrices() {
-        return prices;
+    public CoinPricesCache() {
     }
 
-    public void setPrices(PricesData prices) {
-        cachingTime = System.currentTimeMillis();
-        this.prices = prices;
+    public List<Price> get(String coin, List<String> currencies) {
+        coin = coin.toUpperCase();
+        List<Price> result = new ArrayList<>();
+
+        for(Price price : pricesCache.get(coin)) {
+            if(currencies.contains(price.name())) {
+                result.add(price);
+            }
+        }
+        return result;
     }
 
-    public boolean isCacheExists() {
-        return prices != null;
+    public void set(String coin, List<Price> prices) {
+        coin = coin.toUpperCase();
+        pricesCache.put(coin, prices);
+        setUpToDate(true);
     }
 
-    public boolean isCacheUpToDate() {
+    public boolean isCached(String coin) {
+        coin = coin.toUpperCase();
+        return pricesCache.get(coin) != null;
+    }
 
-        long currentTime = System.currentTimeMillis();
-        long difference = currentTime - cachingTime;
+    public boolean isExpired() {
+        return isCacheUpToDate;
+    }
 
-        return difference <= expirationThresholdInMillis;
+    private void setUpToDate(boolean cacheUpToDate) {
+        isCacheUpToDate = cacheUpToDate;
+    }
+
+    public void expire() {
+        setUpToDate(false);
     }
 }

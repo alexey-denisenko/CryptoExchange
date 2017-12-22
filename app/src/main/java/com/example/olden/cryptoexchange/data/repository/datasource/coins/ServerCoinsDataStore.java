@@ -1,4 +1,4 @@
-package com.example.olden.cryptoexchange.data.repository.datasource;
+package com.example.olden.cryptoexchange.data.repository.datasource.coins;
 
 import com.example.olden.cryptoexchange.data.entity.CoinsData;
 import com.example.olden.cryptoexchange.data.network.CryptoCompareApi;
@@ -16,9 +16,9 @@ public class ServerCoinsDataStore implements CoinsDataStore {
     private CoinsDataCache coinsDataCache;
     private Scheduler ioThread;
 
-    public ServerCoinsDataStore(CryptoCompareApi cryptoCompareApi,
-                                CoinsDataCache coinsDataCache,
-                                @Named(Qualifiers.IO_THREAD) Scheduler ioThread) {
+    ServerCoinsDataStore(CryptoCompareApi cryptoCompareApi,
+                         CoinsDataCache coinsDataCache,
+                         @Named(Qualifiers.IO_THREAD) Scheduler ioThread) {
 
         this.cryptoCompareApi = cryptoCompareApi;
         this.coinsDataCache = coinsDataCache;

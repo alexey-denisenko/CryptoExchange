@@ -1,10 +1,11 @@
 package com.example.olden.cryptoexchange.presentation.prices.presenter;
 
 
+import com.example.olden.cryptoexchange.BuildConfig;
 import com.example.olden.cryptoexchange.business.prices.IPricesInteractor;
-import com.example.olden.cryptoexchange.mvp.BasePresenter;
 import com.example.olden.cryptoexchange.data.entity.Price;
 import com.example.olden.cryptoexchange.di.scope.PricesScope;
+import com.example.olden.cryptoexchange.mvp.BasePresenter;
 import com.example.olden.cryptoexchange.presentation.prices.view.IPricesView;
 
 import java.util.ArrayList;
@@ -12,9 +13,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 @PricesScope
 public class PricesPresenter extends BasePresenter<IPricesView> implements IPricesPresenter<IPricesView> {
@@ -40,9 +39,7 @@ public class PricesPresenter extends BasePresenter<IPricesView> implements IPric
 
     private void loadPricesFromData(String fromPrice) {
         Disposable disposable = interactor.getUpdatablePrices(fromPrice, toPrices)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(pricesData -> handleSuccessLoadPrices(pricesData.data()),
+                .subscribe(this::handleSuccessLoadPrices,
                         this::handleErrorLoadPrices);
         compositeDisposable.add(disposable);
     }
@@ -60,5 +57,8 @@ public class PricesPresenter extends BasePresenter<IPricesView> implements IPric
 
     private void handleErrorLoadPrices(Throwable throwable) {
         getViewOrThrow().showNoDataLoaded();
+        if(BuildConfig.DEBUG) {
+            throwable.printStackTrace();
+        }
     }
 }

@@ -9,7 +9,8 @@ import com.example.olden.cryptoexchange.data.repository.CoinsRepository;
 import com.example.olden.cryptoexchange.data.repository.ICoinsRepository;
 import com.example.olden.cryptoexchange.data.repository.cache.CoinPricesCache;
 import com.example.olden.cryptoexchange.data.repository.cache.CoinsDataCache;
-import com.example.olden.cryptoexchange.data.repository.datasource.CoinsDataStoreFactory;
+import com.example.olden.cryptoexchange.data.repository.datasource.coins.CoinsDataStoreFactory;
+import com.example.olden.cryptoexchange.data.repository.datasource.price.CoinPricesStoreFactory;
 import com.example.olden.cryptoexchange.other.keys.SharedPreferenceKey;
 import com.example.olden.cryptoexchange.other.preferences.StringSetPreferenceType;
 import com.example.olden.cryptoexchange.other.preferences.StringSetSetPreference;
@@ -30,30 +31,31 @@ public class AppModule {
     }
 
     @Provides @Singleton
-    public ICoinsRepository provideCurrenciesRepossitory(CoinsDataStoreFactory coinsDataStoreFactory,
-                                                         StringSetPreferenceType stringSetPreferenceType,
-                                                         CoinsDataMapper coinsDataMapper) {
+    ICoinsRepository provideCurrenciesRepossitory(CoinsDataStoreFactory coinsDataStoreFactory,
+                                                  StringSetPreferenceType stringSetPreferenceType,
+                                                  CoinsDataMapper coinsDataMapper,
+                                                  CoinPricesStoreFactory coinPricesStoreFactory) {
 
-        return new CoinsRepository(coinsDataStoreFactory, stringSetPreferenceType, coinsDataMapper);
+        return new CoinsRepository(coinsDataStoreFactory, coinPricesStoreFactory, stringSetPreferenceType, coinsDataMapper);
     }
 
     @Provides @Singleton
-    public SharedPreferences provideSharedPreferences() {
+    SharedPreferences provideSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     @Provides @Singleton
-    public StringSetPreferenceType provideStringSetPreference(SharedPreferences sharedPreferences) {
+    StringSetPreferenceType provideStringSetPreference(SharedPreferences sharedPreferences) {
         return new StringSetSetPreference(sharedPreferences, SharedPreferenceKey.SAVED_CURRENCIES);
     }
 
     @Provides @Singleton
-    public CoinsDataCache provideCurrenciesCache() {
+    CoinsDataCache provideCurrenciesCache() {
         return new CoinsDataCache();
     }
 
     @Provides @Singleton
-    public CoinPricesCache providePricesCache() {
+    CoinPricesCache providePricesCache() {
         return new CoinPricesCache();
     }
 }

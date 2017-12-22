@@ -1,7 +1,7 @@
 package com.example.olden.cryptoexchange.business.prices;
 
 
-import com.example.olden.cryptoexchange.data.entity.PricesData;
+import com.example.olden.cryptoexchange.data.entity.Price;
 
 import java.util.List;
 
@@ -14,5 +14,5 @@ public interface IPricesInteractor {
 
     int INITIAL_DELAY = 0;
 
-    Observable<PricesData> getUpdatablePrices(String from, List<String> to);
+    Observable<List<Price>> getUpdatablePrices(String from, List<String> to);
 }

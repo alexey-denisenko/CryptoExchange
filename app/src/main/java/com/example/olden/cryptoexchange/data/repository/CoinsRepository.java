@@ -1,9 +1,11 @@
 package com.example.olden.cryptoexchange.data.repository;
 
 
+import com.example.olden.cryptoexchange.data.entity.Price;
 import com.example.olden.cryptoexchange.data.mapper.CoinsDataMapper;
-import com.example.olden.cryptoexchange.data.repository.datasource.CoinsDataStore;
-import com.example.olden.cryptoexchange.data.repository.datasource.CoinsDataStoreFactory;
+import com.example.olden.cryptoexchange.data.repository.datasource.coins.CoinsDataStore;
+import com.example.olden.cryptoexchange.data.repository.datasource.coins.CoinsDataStoreFactory;
+import com.example.olden.cryptoexchange.data.repository.datasource.price.CoinPricesStoreFactory;
 import com.example.olden.cryptoexchange.other.preferences.StringSetPreferenceType;
 
 import java.util.List;
@@ -18,15 +20,17 @@ import io.reactivex.Observable;
 public class CoinsRepository implements ICoinsRepository {
 
     private CoinsDataStoreFactory coinsDataStoreFactory;
+    private CoinPricesStoreFactory coinPricesStoreFactory;
     private StringSetPreferenceType stringSetPrefs;
     private CoinsDataMapper coinsDataMapper;
 
     @Inject
     public CoinsRepository(CoinsDataStoreFactory coinsDataStoreFactory,
-                           StringSetPreferenceType stringSetPrefs,
+                           CoinPricesStoreFactory coinPricesStoreFactory, StringSetPreferenceType stringSetPrefs,
                            CoinsDataMapper coinsDataMapper) {
 
         this.coinsDataStoreFactory = coinsDataStoreFactory;
+        this.coinPricesStoreFactory = coinPricesStoreFactory;
         this.stringSetPrefs = stringSetPrefs;
         this.coinsDataMapper = coinsDataMapper;
     }
@@ -60,5 +64,10 @@ public class CoinsRepository implements ICoinsRepository {
     @Override
     public void saveSelectedCoins(String coin) {
         stringSetPrefs.add(coin);
+    }
+
+    @Override
+    public Observable<List<Price>> getPrices(String from, List<String> to) {
+        return coinPricesStoreFactory.create(from).getPricesData(from, to);
     }
 }

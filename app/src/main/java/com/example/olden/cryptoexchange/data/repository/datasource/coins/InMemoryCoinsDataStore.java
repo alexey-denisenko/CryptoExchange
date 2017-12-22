@@ -1,4 +1,4 @@
-package com.example.olden.cryptoexchange.data.repository.datasource;
+package com.example.olden.cryptoexchange.data.repository.datasource.coins;
 
 
 import com.example.olden.cryptoexchange.data.entity.CoinsData;
@@ -10,7 +10,7 @@ public class InMemoryCoinsDataStore implements CoinsDataStore {
 
     private CoinsDataCache coinsDataCache;
 
-    public InMemoryCoinsDataStore(CoinsDataCache coinsDataCache) {
+    InMemoryCoinsDataStore(CoinsDataCache coinsDataCache) {
 
         this.coinsDataCache = coinsDataCache;
     }

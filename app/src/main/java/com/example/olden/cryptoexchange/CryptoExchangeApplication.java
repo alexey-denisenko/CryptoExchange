@@ -10,8 +10,6 @@ import com.example.olden.cryptoexchange.di.component.DaggerAppComponent;
 import com.example.olden.cryptoexchange.di.module.AppModule;
 import com.example.olden.cryptoexchange.di.module.NetworkModule;
 
-import org.json.JSONObject;
-
 public class CryptoExchangeApplication extends Application {
 
     public static final String BASE_URL = "https://www.cryptocompare.com/api/data/";
@@ -26,7 +24,7 @@ public class CryptoExchangeApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        JSONObject
+
         appComponent = prepareApplicationComponent().build();
 
     }

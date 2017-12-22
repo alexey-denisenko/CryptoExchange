@@ -1,4 +1,4 @@
-package com.example.olden.cryptoexchange.data.repository.datasource;
+package com.example.olden.cryptoexchange.data.repository.datasource.coins;
 
 
 import com.example.olden.cryptoexchange.data.network.CryptoCompareApi;
