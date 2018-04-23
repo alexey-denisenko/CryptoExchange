@@ -53,7 +53,9 @@ public class CoinsRepository implements ICoinsRepository {
 
     @Override
     public Observable<Set<String>> getSelectedCoins() {
-        return Observable.just(stringSetPrefs.get());
+        Set<String> result = stringSetPrefs.get();
+
+        return result != null? Observable.just(result) : Observable.empty() ;
     }
 
     @Override

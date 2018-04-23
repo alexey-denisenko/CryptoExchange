@@ -27,9 +27,11 @@ public class CoinsPresenter extends BasePresenter<ICoinsView> implements ICoinsP
     public void bindView(ICoinsView view) {
         super.bindView(view);
 
-        interactor.getSelectedCoinsList()
+        Disposable disposable = interactor.getSelectedCoinsList()
                 .subscribe(this::handleSuccessLoadSelectedCoins,
                         this::handleErrorLoadSelectedCoins);
+
+        compositeDisposable.add(disposable);
     }
 
     @Override
