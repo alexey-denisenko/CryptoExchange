@@ -10,9 +10,11 @@ import com.example.olden.cryptoexchange.di.component.DaggerAppComponent;
 import com.example.olden.cryptoexchange.di.module.AppModule;
 import com.example.olden.cryptoexchange.di.module.NetworkModule;
 
+import timber.log.Timber;
+
 public class CryptoExchangeApplication extends Application {
 
-    public static final String BASE_URL = "https://www.cryptocompare.com/api/data/";
+    public static final String BASE_URL = "https://min-api.cryptocompare.com/data/";
     private AppComponent appComponent;
 
     @NonNull
@@ -24,7 +26,9 @@ public class CryptoExchangeApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-
+        if(BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
         appComponent = prepareApplicationComponent().build();
 
     }

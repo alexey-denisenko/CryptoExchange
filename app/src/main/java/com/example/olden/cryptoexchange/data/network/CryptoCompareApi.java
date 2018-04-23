@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 
 public interface CryptoCompareApi {
 
-    @GET("coinlist/") @NonNull
+    @GET("all/coinlist") @NonNull
     Observable<CoinsData> getCoinsData();
 
     @GET("price/")

@@ -78,9 +78,7 @@ public class CoinsFragment extends Fragment implements ICoinsView,
 
         inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         snackbar = Snackbar.make(view, "Error loading coins list", Snackbar.LENGTH_INDEFINITE)
-                .setAction("Retry", clickView -> {
-                    presenter.fillAutoCompleteList(true);
-                });
+                .setAction("Retry", clickView -> presenter.fillAutoCompleteList(true));
 
         presenter.bindView(this);
         presenter.fillAutoCompleteList(false);

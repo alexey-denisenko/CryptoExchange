@@ -12,6 +12,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
+import timber.log.Timber;
 
 @CoinsListScope
 public class CoinsPresenter extends BasePresenter<ICoinsView> implements ICoinsPresenter<ICoinsView> {
@@ -29,7 +30,8 @@ public class CoinsPresenter extends BasePresenter<ICoinsView> implements ICoinsP
 
         Disposable disposable = interactor.getSelectedCoinsList()
                 .subscribe(this::handleSuccessLoadSelectedCoins,
-                        this::handleErrorLoadSelectedCoins);
+                        this::handleErrorLoadSelectedCoins,
+                        this::handleOnCompleteLoadingSelectedCoins);
 
         compositeDisposable.add(disposable);
     }
@@ -94,5 +96,10 @@ public class CoinsPresenter extends BasePresenter<ICoinsView> implements ICoinsP
 
     private void handleErrorLoadSelectedCoins(Throwable throwable) {
         //no-op
+        Timber.d(throwable, "load selected coins");
+    }
+
+    private void handleOnCompleteLoadingSelectedCoins() {
+        getViewOrThrow().hideLoading();
     }
 }
